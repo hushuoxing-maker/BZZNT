@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>包装设计智能体 | 20组提案生成 V3.0</title>
+    <style>
+        :root {
+            --bg: #f6f4f0;
+            --panel: #ffffff;
+            --card: #fdfcf9;
+            --border: #e5e0d9;
+            --border2: #d9d2c7;
+            --text: #2b2a27;
+            --text2: #6b6358;
+            --text3: #9b9285;
+            --accent: #b8945a;
+            --accent2: #8b6f3f;
+            --gold: #c9a96e;
+            --gold-light: #f5efe5;
+            --tag-bg: #f8f4ed;
+            --tag-text: #6b5e48;
+            --btn-bg: #faf7f2;
+            --btn-hover: #f0ebe0;
+            --btn-active: #fdf7ed;
+            --btn-active-border: #c9a96e;
+            --input-bg: #fdfcf9;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 3px 16px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.10);
+            --radius-sm: 5px;
+            --radius: 8px;
+            --radius-lg: 14px;
+            --transition: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+            --font: 'Inter', 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', sans-serif;
+            --font-cn: 'PingFang SC', 'Noto Serif SC', 'Microsoft YaHei', 'STSong', sans-serif;
+            --font-serif: 'Noto Serif SC', 'STSong', 'Songti SC', 'SimSun', serif;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: #f0ede8;
+            color: var(--text);
+            font-family: var(--font);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            letter-spacing: 0.01em;
+            -webkit-font-smoothing: antialiased;
+            background-image:
+                radial-gradient(ellipse at 50% 0%, rgba(201, 169, 110, 0.04) 0%, transparent 70%),
+                radial-gradient(ellipse at 50% 100%, rgba(180, 150, 100, 0.03) 0%, transparent 70%);
+        }
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d5cfc5;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #b8b0a4;
+        }
+
+        /* ========== HEADER ========== */
+        .header {
+            background: var(--panel);
+            border-bottom: 1px solid var(--border);
+            padding: 12px 28px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-shrink: 0;
+            z-index: 20;
+            box-shadow: var(--shadow-sm);
+            justify-content: center;
+            letter-spacing: 0.03em;
+        }
+        .header .logo-mark {
+            width: 34px;
+            height: 34px;
+            border-radius: 7px;
+            background: linear-gradient(145deg, #d4ba8a, #a8853f);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 17px;
+            color: #fff;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(168, 133, 63, 0.3);
+            font-family: var(--font-serif);
+        }
+        .header .brand-text {
+            font-family: var(--font-serif);
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: 0.06em;
+            color: #2b2a27;
+        }
+        .header .brand-sub {
+            font-weight: 300;
+            font-size: 10px;
+            letter-spacing: 0.10em;
+            color: var(--accent2);
+            text-transform: uppercase;
+            font-family: var(--font);
+        }
+        .header .divider-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: var(--gold);
+            opacity: 0.5;
+            margin: 0 2px;
+        }
+        .header .badge {
+            font-size: 9px;
+            letter-spacing: 0.06em;
+            background: var(--gold-light);
+            color: var(--accent2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            border: 1px solid #e5d5b8;
+            font-family: var(--font-cn);
+            white-space: nowrap;
+        }
+
+        /* ========== MAIN SYMMETRIC LAYOUT ========== */
+        .main-symmetric {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            gap: 0;
+            position: relative;
+        }
+        /* 中轴线 */
+        .main-symmetric::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, var(--border2), var(--border2), transparent);
+            z-index: 1;
+            pointer-events: none;
+        }
+        /* 左面板 */
+        .panel-left {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background: #faf9f7;
+            border-right: none;
+            position: relative;
+        }
+        /* 右面板 */
+        .panel-right {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background: #fdfcf9;
+            border-left: none;
+            position: relative;
+        }
+        .panel-header {
+            padding: 10px 18px;
+            border-bottom: 1px solid var(--border);
+            background: #fdfcf9;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .panel-header .panel-icon {
+            font-size: 14px;
+            opacity: 0.7;
+        }
+        .panel-header .panel-title {
+            font-family: var(--font-serif);
+            font-weight: 600;
+            font-size: 12.5px;
+            letter-spacing: 0.05em;
+            color: #3a3732;
+        }
+        .panel-header .panel-hint {
+            font-size: 10px;
+            color: #b0a99e;
+            letter-spacing: 0.03em;
+            margin-left: auto;
+        }
+        .panel-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px 14px;
+        }
+
+        /* ========== LEFT PANEL: 分类 + 子类 ========== */
+        .left-inner {
+            display: flex;
+            height: 100%;
+            gap: 0;
+        }
+        .left-sidebar-cats {
+            width: 135px;
+            flex-shrink: 0;
+            overflow-y: auto;
+            border-right: 1px solid #f0ece5;
+            padding: 4px 0;
+            background: #fdfcf9;
+            border-radius: 0;
+        }
+        .left-sidebar-cats .cat-btn {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            width: 100%;
+            padding: 8px 11px;
+            border: none;
+            background: transparent;
+            color: var(--text2);
+            font-size: 11px;
+            cursor: pointer;
+            text-align: left;
+            transition: all var(--transition);
+            letter-spacing: 0.03em;
+            font-family: var(--font-cn);
+            border-left: 2px solid transparent;
+            white-space: nowrap;
+            border-radius: 0;
+        }
+        .left-sidebar-cats .cat-btn:hover {
+            background: #f8f5ef;
+            color: #4a4540;
+        }
+        .left-sidebar-cats .cat-btn.active {
+            background: #fdf8f0;
+            color: var(--accent2);
+            border-left-color: var(--accent);
+            font-weight: 600;
+        }
+        .left-sidebar-cats .cat-icon {
+            width: 16px;
+            text-align: center;
+            font-size: 12px;
+            flex-shrink: 0;
+            opacity: 0.7;
+        }
+        .left-subcat-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px 12px;
+        }
+        .left-subcat-area .group-label {
+            font-size: 10px;
+            color: #b5ada0;
+            letter-spacing: 0.06em;
+            margin: 6px 0 3px;
+            font-family: var(--font-cn);
+            text-transform: uppercase;
+        }
+        .subcat-btn {
+            display: inline-block;
+            padding: 6px 13px;
+            border: 1px solid var(--border);
+            background: var(--btn-bg);
+            color: #5c554a;
+            border-radius: 18px;
+            cursor: pointer;
+            font-size: 11px;
+            font-family: var(--font-cn);
+            letter-spacing: 0.03em;
+            transition: all var(--transition);
+            white-space: nowrap;
+            user-select: none;
+            margin: 2px 3px;
+        }
+        .subcat-btn:hover {
+            background: var(--btn-hover);
+            border-color: #c5bca8;
+            color: #3a3530;
+        }
+        .subcat-btn.selected {
+            background: #fef9f0;
+            border-color: var(--accent);
+            color: var(--accent2);
+            font-weight: 500;
+            box-shadow: 0 0 0 2px rgba(201, 169, 110, 0.12);
+        }
+        .color-swatch {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            border-radius: 3px;
+            margin-right: 5px;
+            vertical-align: middle;
+            border: 1px solid #ddd;
+            flex-shrink: 0;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.08);
+        }
+        .size-input-row {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin: 4px 0;
+        }
+        .size-input-row input {
+            width: 52px;
+            padding: 5px 6px;
+            border: 1px solid var(--border);
+            background: #fffefb;
+            color: #3a3530;
+            border-radius: 4px;
+            font-size: 10.5px;
+            font-family: var(--font);
+            text-align: center;
+            letter-spacing: 0.02em;
+        }
+        .size-input-row input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(201, 169, 110, 0.10);
+        }
+        .size-input-row .unit-label {
+            font-size: 9px;
+            color: #a0988c;
+            letter-spacing: 0.03em;
+        }
+        .preset-size-btn {
+            display: inline-block;
+            padding: 4px 9px;
+            border: 1px solid #e5e0d5;
+            background: #fdfcf8;
+            color: #7a7065;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 10px;
+            font-family: var(--font-cn);
+            letter-spacing: 0.02em;
+            transition: all var(--transition);
+            white-space: nowrap;
+            margin: 2px;
+        }
+        .preset-size-btn:hover {
+            border-color: #c5bca8;
+            color: #4a4540;
+        }
+        .preset-size-btn.selected {
+            border-color: var(--accent);
+            color: var(--accent2);
+            background: #fef9f0;
+        }
+
+        /* ========== RIGHT PANEL: 已选标签 + 20组提示词 ========== */
+        .right-top-tags {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border);
+            background: #fefdfa;
+            flex-shrink: 0;
+            min-height: 44px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            align-items: center;
+        }
+        .right-top-tags .no-tags {
+            font-size: 10px;
+            color: #c5bdb0;
+            letter-spacing: 0.04em;
+        }
+        .selected-tag-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            background: #fdf8f0;
+            border: 1px solid #e5d5b8;
+            border-radius: 14px;
+            font-size: 10px;
+            color: var(--accent2);
+            letter-spacing: 0.03em;
+            font-family: var(--font-cn);
+            cursor: pointer;
+            transition: all var(--transition);
+            white-space: nowrap;
+        }
+        .selected-tag-pill:hover {
+            background: #fef3e2;
+            border-color: #c9a96e;
+        }
+        .selected-tag-pill .remove-x {
+            font-size: 9px;
+            opacity: 0.5;
+            cursor: pointer;
+            margin-left: 1px;
+        }
+        .right-action-row {
+            padding: 8px 14px;
+            border-bottom: 1px solid var(--border);
+            background: #fefdfa;
+            flex-shrink: 0;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .btn-generate {
+            padding: 9px 20px;
+            background: linear-gradient(135deg, #c9a96e, #a8853f);
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 12px;
+            letter-spacing: 0.05em;
+            font-family: var(--font-cn);
+            transition: all var(--transition);
+            white-space: nowrap;
+            box-shadow: 0 3px 12px rgba(168, 133, 63, 0.25);
+        }
+        .btn-generate:hover {
+            box-shadow: 0 6px 22px rgba(168, 133, 63, 0.40);
+            transform: translateY(-1px);
+        }
+        .btn-generate:active {
+            transform: scale(0.96);
+        }
+        .btn-clear-all {
+            padding: 7px 14px;
+            background: transparent;
+            border: 1px solid #d5cfc2;
+            color: #8b8275;
+            border-radius: 18px;
+            cursor: pointer;
+            font-size: 10.5px;
+            letter-spacing: 0.04em;
+            font-family: var(--font-cn);
+            transition: all var(--transition);
+            white-space: nowrap;
+        }
+        .btn-clear-all:hover {
+            border-color: #b5a898;
+            color: #4a4540;
+        }
+        .tag-count-badge {
+            font-size: 10px;
+            color: #b0a99e;
+            letter-spacing: 0.04em;
+            font-family: var(--font-cn);
+        }
+        /* 20组提示词展示区 */
+        .prompts-scroll-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px 10px;
+        }
+        .prompt-card {
+            background: #fefdfa;
+            border: 1px solid #ece7dd;
+            border-radius: var(--radius-sm);
+            margin-bottom: 7px;
+            overflow: hidden;
+            transition: all var(--transition);
+            box-shadow: var(--shadow-sm);
+        }
+        .prompt-card:hover {
+            border-color: #d5ccbb;
+            box-shadow: var(--shadow-md);
+        }
+        .prompt-card summary {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 9px 12px;
+            cursor: pointer;
+            list-style: none;
+            user-select: none;
+            font-size: 11px;
+            letter-spacing: 0.03em;
+            font-family: var(--font-cn);
+            transition: background var(--transition);
+        }
+        .prompt-card summary::-webkit-details-marker {
+            display: none;
+        }
+        .prompt-card summary:hover {
+            background: #fdf9f3;
+        }
+        .prompt-card .p-num {
+            font-family: var(--font-serif);
+            font-weight: 600;
+            font-size: 20px;
+            color: #d5ccbb;
+            min-width: 28px;
+            text-align: center;
+            transition: color var(--transition);
+        }
+        .prompt-card[open] .p-num {
+            color: var(--accent);
+        }
+        .prompt-card .p-title {
+            flex: 1;
+            font-weight: 500;
+            color: #3a3530;
+            font-size: 11.5px;
+            letter-spacing: 0.04em;
+            font-family: var(--font-serif);
+        }
+        .prompt-card .p-arrow {
+            font-size: 9px;
+            color: #c5bdb0;
+            transition: transform var(--transition);
+        }
+        .prompt-card[open] .p-arrow {
+            transform: rotate(180deg);
+            color: var(--accent);
+        }
+        .prompt-card .p-content {
+            padding: 8px 12px 12px 48px;
+            font-size: 10.5px;
+            line-height: 1.8;
+            color: #5c554a;
+            letter-spacing: 0.02em;
+            font-family: var(--font-cn);
+            border-top: 1px solid #f5f1ea;
+            position: relative;
+        }
+        .prompt-card .btn-copy-small {
+            display: inline-block;
+            margin-top: 6px;
+            padding: 4px 10px;
+            background: #faf7f2;
+            border: 1px solid #e5dfd5;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 9.5px;
+            letter-spacing: 0.04em;
+            color: #8b8275;
+            font-family: var(--font-cn);
+            transition: all var(--transition);
+        }
+        .prompt-card .btn-copy-small:hover {
+            background: #f0ebe0;
+            border-color: #c5bca8;
+            color: #4a4540;
+        }
+        .prompt-card .btn-copy-small.copied {
+            background: #e8f5e9;
+            border-color: #a5d6a7;
+            color: #2e7d32;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 30px 20px;
+            color: #c5bdb0;
+            font-family: var(--font-cn);
+            font-size: 11px;
+            letter-spacing: 0.04em;
+        }
+        .empty-state .icon-big {
+            font-size: 40px;
+            display: block;
+            margin-bottom: 10px;
+            opacity: 0.5;
+        }
+
+        /* ========== TOAST ========== */
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #3a3530;
+            color: #f5efe5;
+            padding: 9px 22px;
+            border-radius: 20px;
+            font-size: 11px;
+            letter-spacing: 0.04em;
+            z-index: 999;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.35s;
+            font-family: var(--font-cn);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.20);
+        }
+        .toast.show {
+            opacity: 1;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 900px) {
+            .main-symmetric {
+                flex-direction: column;
+            }
+            .main-symmetric::before {
+                display: none;
+            }
+            .panel-left,
+            .panel-right {
+                width: 100%;
+                flex: none;
+                max-height: 48%;
+                min-height: 300px;
+            }
+            .left-sidebar-cats {
+                width: 100px;
+            }
+            .left-sidebar-cats .cat-btn {
+                font-size: 10px;
+                padding: 6px 8px;
+            }
+            .subcat-btn {
+                font-size: 10px;
+                padding: 4px 10px;
+            }
+            .header {
+                padding: 8px 14px;
+                gap: 8px;
+            }
+            .header .brand-text {
+                font-size: 13px;
+            }
+        }
+        @media (max-width: 500px) {
+            .left-inner {
+                flex-direction: column;
+            }
+            .left-sidebar-cats {
+                width: 100%;
+                flex-direction: row;
+                display: flex;
+                overflow-x: auto;
+                border-right: none;
+                border-bottom: 1px solid #f0ece5;
+                padding: 2px 4px;
+            }
+            .left-sidebar-cats .cat-btn {
+                flex-shrink: 0;
+                border-left: none;
+                border-bottom: 2px solid transparent;
+                padding: 5px 9px;
+                font-size: 10px;
+                white-space: nowrap;
+            }
+            .left-sidebar-cats .cat-btn.active {
+                border-left-color: transparent;
+                border-bottom-color: var(--accent);
+            }
+            .prompt-card .p-num {
+                font-size: 16px;
+                min-width: 22px;
+            }
+            .prompt-card .p-title {
+                font-size: 10px;
+            }
+            .prompt-card .p-content {
+                font-size: 9.5px;
+                padding-left: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="logo-mark">包</div>
+        <span class="brand-text">包装设计智能体</span>
+        <span class="divider-dot"></span>
+        <span class="brand-sub">PACKAGING AI AGENT</span>
+        <span class="divider-dot"></span>
+        <span class="badge">2026新规合规 · 20组提案</span>
+    </div>
+
+    <!-- 左右对称主体 -->
+    <div class="main-symmetric">
+
+        <!-- ========== 左面板：分类选择 ========== -->
+        <div class="panel-left">
+            <div class="panel-header">
+                <span class="panel-icon">📂</span>
+                <span class="panel-title">分类选择</span>
+                <span class="panel-hint">点击左侧分类 → 选择子类</span>
+            </div>
+            <div class="left-inner">
+                <!-- 一级母类侧边栏 -->
+                <div class="left-sidebar-cats" id="leftSidebarCats"></div>
+                <!-- 子类选择区 -->
+                <div class="left-subcat-area" id="leftSubcatArea"></div>
+            </div>
+        </div>
+
+        <!-- ========== 右面板：已选标签 + 20组提示词 ========== -->
+        <div class="panel-right">
+            <div class="panel-header">
+                <span class="panel-icon">📋</span>
+                <span class="panel-title">生成结果 · 20组提案提示词</span>
+                <span class="panel-hint" id="tagCountLabel">已选 0 项</span>
+            </div>
+            <!-- 已选标签 -->
+            <div class="right-top-tags" id="rightTopTags">
+                <span class="no-tags">等待选择标签…</span>
+            </div>
+            <!-- 操作按钮 -->
+            <div class="right-action-row">
+                <button class="btn-generate" onclick="generate20Prompts()">✦ 生成20组提示词</button>
+                <button class="btn-clear-all" onclick="clearAllSelections()">清空全部</button>
+            </div>
+            <!-- 20组提示词展示 -->
+            <div class="prompts-scroll-area" id="promptsScrollArea">
+                <div class="empty-state">
+                    <span class="icon-big">📝</span>
+                    请先在左侧选择标签<br>然后点击「生成20组提示词」
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ==================== 数据定义 ====================
+        const categoryData = {
+            '行业包装分类': {
+                icon: '📦',
+                sub: {
+                    '食品包装': ['零食包装', '茶叶包装', '咖啡包装', '烘焙包装', '月饼礼盒', '水果包装', '冷冻食品', '调味品包装', '饮料包装', '酒类包装',
+                        '保健品包装', '农产品包装', '生鲜包装', '速食包装', '外卖包装'
+                    ],
+                    '美妆包装': ['护肤品', '香水', '面膜', '精华液', '彩妆', '口红', '粉底液', '男士护理', '医美包装'],
+                    '电子产品包装': ['手机包装', '耳机包装', '数码产品', 'AI设备', '智能硬件', '电器包装'],
+                    '礼盒包装': ['节日礼盒', '企业礼盒', '高端礼盒', '茶礼盒', '月饼礼盒', '年货礼盒', '商务礼盒'],
+                    '医药包装': ['药盒', '药瓶', 'OTC包装', '医疗器械', '保健药品'],
+                    '服装包装': ['鞋盒', '服装袋', '吊牌', '快递袋', '高端礼盒'],
+                    '电商包装': ['快递箱', '电商礼盒', '飞机盒', '邮寄包装', '防震包装']
+                }
+            },
+            '包装结构分类': {
+                icon: '📐',
+                sub: {
+                    '盒型结构': ['天地盖盒', '抽屉盒', '翻盖盒', '磁吸盒', '手提盒', '异形盒', '书型盒', '双开门盒', '折叠盒', '飞机盒', '卡盒', '坑盒',
+                        '套筒盒', '圆筒盒', '三角盒', '六边形盒'
+                    ],
+                    '袋型结构': ['自立袋', '拉链袋', '真空袋', '吸嘴袋', '铝箔袋', '手提袋', '牛皮纸袋'],
+                    '瓶罐结构': ['喷雾瓶', '滴管瓶', '真空瓶', '广口瓶', '易拉罐', '玻璃罐']
+                }
+            },
+            '包装材质分类': {
+                icon: '🧱',
+                sub: {
+                    '纸质材料': ['白卡纸', '灰板', '铜版纸', '牛皮纸', '特种纸', '瓦楞纸', '艺术纸', '黑卡纸'],
+                    '塑料材料': ['PET', 'PVC', 'PP', 'PE', '亚克力', 'PETG'],
+                    '金属材料': ['铝', '铁盒', '不锈钢', '金属拉丝'],
+                    '玻璃材料': ['磨砂玻璃', '高透玻璃', '电镀玻璃'],
+                    '环保材料': ['可降解材料', '玉米纤维', '环保纸浆', '再生纸', 'FSC认证纸', '菌丝体包装', 'rPET再生海洋塑料', '石头纸']
+                }
+            },
+            '包装工艺分类': {
+                icon: '🔨',
+                sub: {
+                    '印刷工艺': ['烫金', '烫银', 'UV', '局部UV', '击凸', '击凹', '压纹', '覆膜', '哑膜', '光膜', '丝印', '浮雕', '镂空', '激光雕刻'],
+                    '特殊工艺': ['夜光', '温变', '香味油墨', '防伪码', '镭射', '镜面反光']
+                }
+            },
+            '包装风格分类': {
+                icon: '🎨',
+                sub: {
+                    '风格': ['极简风', '国潮风', '新中式', '科技未来', '轻奢', '北欧', '日式', '复古', '朋克', '赛博朋克', '插画风', '卡通IP', '潮玩风',
+                        '奢侈品风', '欧美风', 'INS风', '莫兰迪', '高级黑金', '中国红', '自然生态'
+                    ]
+                }
+            },
+            '包装尺寸系统': {
+                icon: '📏',
+                sub: {
+                    '尺寸参数': ['长', '宽', '高', '厚度', '容量', '克重', '净含量', '承重', '内托尺寸', '外箱尺寸'],
+                    '常见礼盒规格': ['小礼盒20×20×8cm', '中礼盒30×30×10cm', '大礼盒40×40×15cm'],
+                    '常见手提袋规格': ['小号20×15×8', '中号30×25×10', '大号40×35×12']
+                },
+                hasInput: true
+            },
+            '包装视觉系统': {
+                icon: '👁',
+                sub: {
+                    '视觉元素': ['LOGO', '品牌名', 'slogan', '主标题', '副标题', '图形元素', 'IP插画', '吉祥物', '产品图', '花纹', '辅助图形'],
+                    '字体系统': ['黑体', '宋体', '书法', '英文字体', '潮流字体', '极简字体']
+                }
+            },
+            '包装颜色系统': {
+                icon: '🌈',
+                sub: {
+                    '色系': ['黑金', '红金', '白金', '莫兰迪', '奶油色', '中国红', '科技蓝', '爱马仕橙', '蒂芙尼蓝', '抹茶绿', '高级灰', '荧光色', '糖果色']
+                },
+                isColor: true
+            },
+            '包装印刷系统': {
+                icon: '🖨',
+                sub: {
+                    '印刷参数': ['CMYK', 'Pantone', '专色', '四色印刷', '数码印刷', '柔版印刷', '凹版印刷', '丝网印刷', '数码烫金']
+                }
+            },
+            '包装营销系统': {
+                icon: '📢',
+                sub: {
+                    '营销场景': ['礼盒', '节庆', '促销', '限量版', '联名款', '季节限定', '会员专属', '新品首发']
+                }
+            },
+            '包装展示系统': {
+                icon: '📺',
+                sub: {
+                    '展示渠道': ['电商', '货架', '直播', '免税店', '专柜', '快闪店', '社交媒体', '开箱视频']
+                }
+            },
+            '包装用户体验': {
+                icon: '🤲',
+                sub: {
+                    '体验要素': ['开箱感', '便携', '防伪', '仪式感', '触感', '易开启', '可重复使用', '盲文压印', 'NFC触碰']
+                }
+            },
+            '包装生产系统': {
+                icon: '⚙',
+                sub: {
+                    '生产信息': ['刀模图', '出血线', '拼版', '打样', '大货', '起订量', '工厂报价', '运输方式']
+                }
+            },
+            '包装成本系统': {
+                icon: '💰',
+                sub: {
+                    '成本要素': ['单价', '材质成本', '工艺成本', '模具费', '印刷费', '人工费', '物流费', '包装比']
+                }
+            },
+            '包装环保系统': {
+                icon: '🌱',
+                sub: {
+                    '环保要素': ['可降解', '环保材料', '无塑封膜', '大豆油墨', '水性涂层', '碳足迹标签', '零废弃展开式', '替换装设计', '去虚伪空间',
+                        '一体成型无胶自锁盒', '全成分透明窗', '产品溯源二维码', '数字水印'
+                    ]
+                }
+            },
+            'AI提示词系统': {
+                icon: '🤖',
+                sub: {
+                    '提示词要素': ['多视图陈列', 'C4D渲染', 'Octane渲染器', '8K超高清', '产品级精修', '柔光箱布光', '微水泥台面', '博物馆级展陈',
+                        '包装设计获奖作品级', '正面主视图C位', '45°俯视立体视角', '侧面结构展示'
+                    ]
+                }
+            }
+        };
+
+        // 20组设计概念（确保每组提示词方向不同）
+        const designConcepts = [
+            { id: '01', name: '极简东方哲思', feature: '大面积留白，墨线勾勒山形，篆书压凹logo，留白率78%', material: 'FSC认证纸',
+                structure: '一体成型无胶自锁盒', eco: '碳足迹标签+盲文压印' },
+            { id: '02', name: '超现实自然肌理', feature: '苔藓呼吸孔肌理，蕨类叶脉拓印，孢子粉尘悬浮', material: '菌丝体包装', structure: '零废弃展开式',
+                eco: '全成分透明窗+数字水印' },
+            { id: '03', name: '未来液态金属', feature: '液态金属银流线，镭射光纹随角变色，电蚀刻工艺', material: 'rPET再生海洋塑料', structure: '替换装设计',
+                eco: 'NFC触碰区+产品溯源二维码' },
+            { id: '04', name: '孟菲斯波普', feature: '几何解构涂鸦，亮橙薄荷粉红碰撞，积木字体错位', material: '可堆肥PLA生物基薄膜', structure: '片材折叠免胶结构',
+                eco: '溯源二维码波普阵列' },
+            { id: '05', name: '生物仿生', feature: '蜂巢六边形网格，蜜蜡黄与深棕渐变，翅膀纹理凸印', material: '菌丝体包装', structure: '一体成型无胶自锁盒',
+                eco: '碳足迹标签+盲文压印' },
+            { id: '06', name: '可降解原生美学', feature: '纸浆自然斑驳，孤行诗句排版，干麦穗点缀', material: '纸质拉链袋+无塑封膜', structure: '去虚伪空间',
+                eco: '大豆油墨+水性涂层' },
+            { id: '07', name: '种子纸可种植', feature: '叶脉压痕与发芽种子线稿，嫩绿单色渐变，芽苞logo', material: '嵌入种子的FSC认证纸', structure: '一体成型无胶盒',
+                eco: '产品溯源二维码' },
+            { id: '08', name: 'AR交互窗口', feature: '生物基薄膜AR识别窗，荧光青标示点，科技蓝悬浮粒子', material: 'FSC认证白卡纸', structure: '纸质拉链袋',
+                eco: 'NFC触碰区+溯源二维码' },
+            { id: '09', name: '复古胶片感', feature: '70年代相纸质感，胶片齿孔logo，手工撕纹边缘', material: '石头纸', structure: '零废弃展开式信笺盒',
+                eco: '数字水印+碳足迹标签' },
+            { id: '10', name: '光栅动画光变', feature: '滑动光栅分子动画，全息青-品红渐变，棱镜粒子', material: 'rPET再生海洋塑料', structure: '替换装滑盖盒',
+                eco: '全成分透明窗+NFC触碰区' },
+            { id: '11', name: '手工匠人痕迹', feature: '手工靛蓝染棉纸，铜模烙烫logo边缘微焦，木槌线轴散落', material: 'FSC认证纸', structure: '一体成型无胶盒',
+                eco: '碳足迹标签+盲文压印' },
+            { id: '12', name: '透明科学窗', feature: '实验室色谱，分子结构丝印，微量移液器道具', material: 'rPET再生海洋塑料', structure: '纸质拉链袋',
+                eco: '全成分透明窗+溯源二维码' },
+            { id: '13', name: '水墨解构', feature: '宣纸质感泼墨像素点阵，朱砂红印章logo，松烟墨笔搁', material: 'FSC认证纸', structure: '一体成型无胶自锁盒',
+                eco: '碳足迹标签+溯源二维码' },
+            { id: '14', name: '矿物晶体肌理', feature: '紫晶洞微晶纹理，晶面反光凸版压印，细碎矿石铺底', material: '石头纸', structure: '零废弃展开式',
+                eco: '数字水印+盲文压印' },
+            { id: '15', name: '光影镂空灯笼', feature: '激光镂空分子式剪影，内置透光花窗投影，檀香几缕', material: 'FSC认证纸', structure: '一体成型无胶自锁盒',
+                eco: 'NFC触碰区+溯源二维码' },
+            { id: '16', name: '医用级洁净白', feature: '纯白纸板零干扰，极小字号留白率90%，干冰雾不锈钢托盘', material: 'FSC认证纸板', structure: '替换装设计',
+                eco: '全成分透明窗+溯源二维码' },
+            { id: '17', name: '宋版古籍装帧', feature: '手工纸裱函套，鱼尾界行楷体竖排，白瓷研钵药匙', material: 'FSC认证手工纸', structure: '替换装设计',
+                eco: '数字水印+溯源二维码' },
+            { id: '18', name: '天然纤维编织', feature: '竹编纹理浮雕，火烙印痕logo，干花束亚麻布衬托', material: '黄麻纤维复合纸', structure: '一体成型盒',
+                eco: '碳足迹标签+溯源二维码' },
+            { id: '19', name: '温度感手工纸', feature: '羊毛毡感纤维纸，水彩笔触温柔，棉线缝制logo', material: 'FSC认证纸', structure: '去虚伪空间包裹式',
+                eco: '碳足迹标签+盲文压印' },
+            { id: '20', name: '声波香气可视化', feature: '精油声波波形浮雕，香气分子扩散渐变，有色粒子模拟香迹', material: '菌丝体包装', structure: '片材折叠免胶结构',
+                eco: '数字水印+碳足迹标签' }
+        ];
+
+        // ==================== 状态管理 ====================
+        let activeCategory = '行业包装分类';
+        let selectedTags = {};
+        let generatedPromptsCache = []; // 存储已生成的20组提示词
+
+        // ==================== 初始化 ====================
+        function init() {
+            renderLeftSidebar();
+            renderSubcategories(activeCategory);
+            updateRightTags();
+            updatePromptsDisplay();
+        }
+
+        function renderLeftSidebar() {
+            const sidebar = document.getElementById('leftSidebarCats');
+            sidebar.innerHTML = '';
+            Object.keys(categoryData).forEach(catName => {
+                const btn = document.createElement('button');
+                btn.className = 'cat-btn' + (catName === activeCategory ? ' active' : '');
+                btn.innerHTML =
+                    `<span class="cat-icon">${categoryData[catName].icon}</span><span>${catName.replace('包装','').replace('分类','').replace('系统','')}</span>`;
+                btn.onclick = () => {
+                    activeCategory = catName;
+                    renderLeftSidebar();
+                    renderSubcategories(catName);
+                };
+                sidebar.appendChild(btn);
+            });
+        }
+
+        function renderSubcategories(catName) {
+            const data = categoryData[catName];
+            const area = document.getElementById('leftSubcatArea');
+            area.innerHTML = '';
+
+            if (!data.sub) return;
+
+            // 颜色系统特殊处理
+            if (data.isColor) {
+                const colorMap = {
+                    '黑金': 'linear-gradient(135deg,#1a1a1a,#c9a96e)',
+                    '红金': 'linear-gradient(135deg,#8b0000,#d4a84b)',
+                    '白金': 'linear-gradient(135deg,#e8e4df,#c9a96e)',
+                    '莫兰迪': '#b5a99d',
+                    '奶油色': '#f5ecd7',
+                    '中国红': '#c41e3a',
+                    '科技蓝': '#1e5fbb',
+                    '爱马仕橙': '#f47321',
+                    '蒂芙尼蓝': '#81d8d0',
+                    '抹茶绿': '#b7c9a8',
+                    '高级灰': '#8c8c8c',
+                    '荧光色': '#d4ff00',
+                    '糖果色': '#ffb3c6'
+                };
+                Object.entries(data.sub).forEach(([groupName, items]) => {
+                    const gl = document.createElement('div');
+                    gl.className = 'group-label';
+                    gl.textContent = groupName;
+                    area.appendChild(gl);
+                    items.forEach(item => {
+                        const btn = document.createElement('button');
+                        btn.className = 'subcat-btn';
+                        const cv = colorMap[item] || '#888';
+                        btn.innerHTML =
+                            `<span class="color-swatch" style="background:${cv};"></span>${item}`;
+                        btn.dataset.group = groupName;
+                        btn.dataset.value = item;
+                        btn.dataset.category = catName;
+                        updateSubcatBtnState(btn, catName, groupName, item);
+                        btn.onclick = () => toggleTag(catName, groupName, item, btn);
+                        area.appendChild(btn);
+                    });
+                });
+                return;
+            }
+
+            // 尺寸系统
+            if (data.hasInput) {
+                const inputRow = document.createElement('div');
+                inputRow.className = 'size-input-row';
+                const fields = ['长(cm)', '宽(cm)', '高(cm)', '容量(ml)', '克重(g)'];
+                fields.forEach(f => {
+                    const sp = document.createElement('span');
+                    sp.className = 'unit-label';
+                    sp.textContent = f;
+                    inputRow.appendChild(sp);
+                    const inp = document.createElement('input');
+                    inp.type = 'text';
+                    inp.placeholder = '--';
+                    inp.dataset.field = f;
+                    inp.onchange = function() {
+                        if (this.value.trim()) {
+                            addCustomTag(catName, '尺寸参数', f + ':' + this.value.trim());
+                        }
+                    };
+                    inputRow.appendChild(inp);
+                });
+                area.appendChild(inputRow);
+
+                Object.entries(data.sub).forEach(([groupName, items]) => {
+                    const gl = document.createElement('div');
+                    gl.className = 'group-label';
+                    gl.textContent = groupName;
+                    area.appendChild(gl);
+                    items.forEach(item => {
+                        const btn = document.createElement('button');
+                        btn.className = 'preset-size-btn';
+                        btn.textContent = item;
+                        btn.dataset.group = groupName;
+                        btn.dataset.value = item;
+                        btn.dataset.category = catName;
+                        updateSubcatBtnState(btn, catName, groupName, item);
+                        btn.onclick = () => toggleTag(catName, groupName, item, btn);
+                        area.appendChild(btn);
+                    });
+                });
+                return;
+            }
+
+            // 普通子类
+            Object.entries(data.sub).forEach(([groupName, items]) => {
+                const gl = document.createElement('div');
+                gl.className = 'group-label';
+                gl.textContent = groupName;
+                area.appendChild(gl);
+                items.forEach(item => {
+                    const btn = document.createElement('button');
+                    btn.className = 'subcat-btn';
+                    btn.textContent = item;
+                    btn.dataset.group = groupName;
+                    btn.dataset.value = item;
+                    btn.dataset.category = catName;
+                    updateSubcatBtnState(btn, catName, groupName, item);
+                    btn.onclick = () => toggleTag(catName, groupName, item, btn);
+                    area.appendChild(btn);
+                });
+            });
+        }
+
+        function updateSubcatBtnState(btn, catName, groupName, item) {
+            const key = `${catName}|||${groupName}|||${item}`;
+            if (selectedTags[key]) {
+                btn.classList.add('selected');
+            } else {
+                btn.classList.remove('selected');
+            }
+        }
+
+        function toggleTag(catName, groupName, item, btn) {
+            const key = `${catName}|||${groupName}|||${item}`;
+            if (selectedTags[key]) {
+                delete selectedTags[key];
+            } else {
+                Object.keys(selectedTags).forEach(k => {
+                    if (k.startsWith(`${catName}|||${groupName}|||`)) {
+                        delete selectedTags[k];
+                    }
+                });
+                selectedTags[key] = { catName, groupName, item };
+            }
+            renderSubcategories(activeCategory);
+            updateRightTags();
+            // 清除已生成的提示词（因为选择变化了）
+            generatedPromptsCache = [];
+            updatePromptsDisplay();
+        }
+
+        function addCustomTag(catName, groupName, value) {
+            const key = `${catName}|||${groupName}|||${value}`;
+            selectedTags[key] = { catName, groupName, item: value };
+            updateRightTags();
+            generatedPromptsCache = [];
+            updatePromptsDisplay();
+        }
+
+        function updateRightTags() {
+            const container = document.getElementById('rightTopTags');
+            const keys = Object.keys(selectedTags);
+            document.getElementById('tagCountLabel').textContent = `已选 ${keys.length} 项`;
+            if (keys.length === 0) {
+                container.innerHTML = '<span class="no-tags">等待选择标签…</span>';
+            } else {
+                container.innerHTML = keys.map(key => {
+                    const v = selectedTags[key];
+                    const short = `${v.catName.replace('包装','').replace('分类','').replace('系统','').slice(0,4)}:${v.item}`;
+                    return `<span class="selected-tag-pill" title="${v.catName} > ${v.groupName} > ${v.item}" onclick="removeTag('${key.replace(/'/g,"\\'")}')">${short}<span class="remove-x">×</span></span>`;
+                }).join('');
+            }
+        }
+
+        function removeTag(key) {
+            delete selectedTags[key];
+            renderSubcategories(activeCategory);
+            updateRightTags();
+            generatedPromptsCache = [];
+            updatePromptsDisplay();
+        }
+
+        function clearAllSelections() {
+            selectedTags = {};
+            generatedPromptsCache = [];
+            renderSubcategories(activeCategory);
+            updateRightTags();
+            updatePromptsDisplay();
+            showToast('已清空全部选择');
+        }
+
+        function updatePromptsDisplay() {
+            const area = document.getElementById('promptsScrollArea');
+            if (generatedPromptsCache.length === 0) {
+                area.innerHTML = `
+                <div class="empty-state">
+                  <span class="icon-big">📝</span>
+                  请先在左侧选择标签<br>然后点击「生成20组提示词」
+                </div>`;
+            } else {
+                area.innerHTML = generatedPromptsCache.map((p, i) => `
+                <details class="prompt-card" id="promptCard${i}">
+                  <summary>
+                    <span class="p-num">${String(i+1).padStart(2,'0')}</span>
+                    <span class="p-title">${p.conceptName}</span>
+                    <span class="p-arrow">▼</span>
+                  </summary>
+                  <div class="p-content">
+                    ${p.fullPrompt}
+                    <br>
+                    <button class="btn-copy-small" onclick="copySinglePrompt(${i}, this)" data-index="${i}">📋 复制此条</button>
+                  </div>
+                </details>`).join('');
+            }
+        }
+
+        // ==================== 生成20组提示词 ====================
+        function generate20Prompts() {
+            const keys = Object.keys(selectedTags);
+            if (keys.length === 0) {
+                showToast('请先在左侧选择至少一个标签');
+                return;
+            }
+
+            // 收集用户选择的标签信息
+            const grouped = {};
+            keys.forEach(k => {
+                const v = selectedTags[k];
+                if (!grouped[v.catName]) grouped[v.catName] = [];
+                grouped[v.catName].push(v.item);
+            });
+
+            const userIndustry = grouped['行业包装分类'] ? grouped['行业包装分类'].join('、') : '高端消费品';
+            const userStructure = grouped['包装结构分类'] ? grouped['包装结构分类'].join('、') : '天地盖盒';
+            const userMaterial = grouped['包装材质分类'] ? grouped['包装材质分类'].join('、') : 'FSC认证纸';
+            const userCraft = grouped['包装工艺分类'] ? grouped['包装工艺分类'].join('、') : '烫金+压纹';
+            const userStyle = grouped['包装风格分类'] ? grouped['包装风格分类'].join('、') : '极简轻奢';
+            const userColor = grouped['包装颜色系统'] ? grouped['包装颜色系统'].join('、') : '黑金';
+            const userVisual = grouped['包装视觉系统'] ? grouped['包装视觉系统'].join('、') : 'LOGO+品牌名';
+            const userEco = grouped['包装环保系统'] ? grouped['包装环保系统'].join('、') : '碳足迹标签';
+            const userExp = grouped['包装用户体验'] ? grouped['包装用户体验'].join('、') : '开箱仪式感';
+            const userDisplay = grouped['包装展示系统'] ? grouped['包装展示系统'].join('、') : '电商+货架';
+            const userSize = grouped['包装尺寸系统'] ? grouped['包装尺寸系统'].join('、') : '';
+            const userAI = grouped['AI提示词系统'] ? grouped['AI提示词系统'].join('、') : '多视图陈列+8K超高清+C4D渲染';
+
+            generatedPromptsCache = [];
+
+            // 为20个设计概念分别生成独特提示词
+            designConcepts.forEach((concept, index) => {
+                // 每个概念使用不同的环保要素组合
+                const ecoOptions = [
+                    '碳足迹标签+盲文压印',
+                    '全成分透明窗+数字水印',
+                    'NFC触碰区+产品溯源二维码',
+                    '大豆油墨+水性涂层+无塑封膜',
+                    '零废弃展开式+碳足迹标签',
+                    '替换装设计+溯源二维码',
+                    '一体成型无胶自锁盒+盲文压印',
+                    '纸质拉链袋+数字水印',
+                ];
+                const selectedEco = concept.eco || ecoOptions[index % ecoOptions.length];
+
+                // 构建独特提示词
+                let prompt = `包装设计提案效果图，专业产品摄影级多视图陈列，`;
+                prompt += `构图包含正面主视图（居中C位占比45%）、45°俯视立体视角（右侧占比30%）、侧面结构展示（左侧占比25%），`;
+                prompt += `高档影棚纯色微水泥台面，三视图整齐排列，柔和投影与精准高光，8K超高清，C4D渲染，Octane渲染器，产品级精修质感——`;
+                prompt += `【概念】${concept.name}：${concept.feature}；`;
+                prompt += `【行业】${userIndustry}；【结构】${concept.structure || userStructure}；`;
+                prompt += `【材质】${concept.material || userMaterial}；【工艺】${userCraft}；`;
+                prompt += `【风格】${userStyle}；【色彩】${userColor}；【视觉】${userVisual}；`;
+                prompt += `【环保】${selectedEco}；`;
+                if (userSize) prompt += `【尺寸】${userSize}；`;
+                prompt += `【体验】${userExp}；【展示】${userDisplay}；`;
+                prompt += `【AI要素】${userAI}——`;
+                prompt += `高品质产品摄影布光，柔光箱加侧逆光，空气感微尘，博物馆级展陈质感，极致细节，包装设计获奖作品级画面。`;
+
+                generatedPromptsCache.push({
+                    conceptName: concept.name,
+                    fullPrompt: prompt,
+                    index: index
+                });
+            });
+
+            updatePromptsDisplay();
+            showToast('✅ 已生成20组不重复提示词！每组可展开查看并复制');
+            // 滚动到提示词区域顶部
+            document.getElementById('promptsScrollArea').scrollTop = 0;
+        }
+
+        function copySinglePrompt(index, btnElement) {
+            if (index >= 0 && index < generatedPromptsCache.length) {
+                const text = generatedPromptsCache[index].fullPrompt;
+                copyToClipboard(text, btnElement);
+            }
+        }
+
+        function copyToClipboard(text, btnElement) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    if (btnElement) {
+                        btnElement.classList.add('copied');
+                        btnElement.textContent = '✅ 已复制';
+                        setTimeout(() => {
+                            btnElement.classList.remove('copied');
+                            btnElement.textContent = '📋 复制此条';
+                        }, 1800);
+                    }
+                    showToast('📋 提示词已复制到剪贴板');
+                }).catch(() => fallbackCopy(text, btnElement));
+            } else {
+                fallbackCopy(text, btnElement);
+            }
+        }
+
+        function fallbackCopy(text, btnElement) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.left = '-9999px';
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand('copy'); } catch (e) {}
+            document.body.removeChild(ta);
+            if (btnElement) {
+                btnElement.classList.add('copied');
+                btnElement.textContent = '✅ 已复制';
+                setTimeout(() => {
+                    btnElement.classList.remove('copied');
+                    btnElement.textContent = '📋 复制此条';
+                }, 1800);
+            }
+            showToast('📋 已复制');
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            clearTimeout(toast._timeout);
+            toast._timeout = setTimeout(() => toast.classList.remove('show'), 2000);
+        }
+
+        // ==================== 启动 ====================
+        init();
+        renderSubcategories('行业包装分类');
+    </script>
+</body>
+</html>
