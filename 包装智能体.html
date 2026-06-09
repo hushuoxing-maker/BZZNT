@@ -3,239 +3,992 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>包装设计智能体 | 八组完整方案 · 全系统保留 V10.0</title>
+    <title>包装设计智能体 | 九组同源扩展 · 场景一致 V13</title>
     <style>
         :root {
-            --bg: #f6f4f0; --panel: #ffffff; --card: #fdfcf9; --border: #e5e0d9; --text: #2b2a27;
-            --text2: #6b6358; --accent: #b8945a; --accent2: #8b6f3f; --gold-light: #f5efe5;
-            --btn-bg: #faf7f2; --btn-hover: #f0ebe0; --input-bg: #fdfcf9;
-            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04); --radius-sm: 5px;
-            --font: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif;
-            --font-cn: 'PingFang SC', 'Noto Serif SC', 'Microsoft YaHei', 'STSong', sans-serif;
+            --bg: #0d0e11;
+            --surface: #14151a;
+            --card: #1a1c22;
+            --border: #262830;
+            --border-light: #2e3039;
+            --text: #e2e4e9;
+            --text2: #a1a5b0;
+            --text3: #6b6f7a;
+            --accent: #c9a96e;
+            --accent-light: #e0cfa5;
+            --accent-dark: #8b6f3f;
+            --gold: #c9a96e;
+            --radius-sm: 6px;
+            --radius: 10px;
+            --radius-lg: 14px;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
+            --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.6);
+            --font: 'Inter', 'SF Pro Display', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            --font-cn: 'PingFang SC', 'Noto Serif SC', 'STSong', 'Microsoft YaHei', serif;
+            --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { background:#f0ede8; color:var(--text); font-family:var(--font); height:100vh; display:flex; flex-direction:column; overflow:hidden; }
-        ::-webkit-scrollbar { width:5px; height:5px; } ::-webkit-scrollbar-thumb { background:#d5cfc5; border-radius:4px; }
-        .header { background:#fff; border-bottom:1px solid var(--border); padding:10px 24px; display:flex; align-items:center; gap:12px; flex-shrink:0; justify-content:center; }
-        .header .logo { width:34px; height:34px; border-radius:7px; background:linear-gradient(145deg,#d4ba8a,#a8853f); color:#fff; font-weight:700; font-size:17px; display:flex; align-items:center; justify-content:center; }
-        .header .title { font-weight:600; font-size:14px; letter-spacing:0.05em; }
-        .badge { font-size:9px; background:var(--gold-light); color:var(--accent2); padding:4px 10px; border-radius:20px; border:1px solid #e5d5b8; }
-        .main-symmetric { display:flex; flex:1; overflow:hidden; position:relative; }
-        .main-symmetric::before { content:''; position:absolute; left:50%; top:0; bottom:0; width:1px; background:linear-gradient(to bottom,transparent,#d9d2c7,transparent); z-index:1; pointer-events:none; }
-        .panel-left,.panel-right { width:50%; display:flex; flex-direction:column; overflow:hidden; background:#faf9f7; }
-        .panel-right { background:#fdfcf9; }
-        .panel-header { padding:8px 16px; border-bottom:1px solid var(--border); background:#fdfcf9; flex-shrink:0; display:flex; align-items:center; gap:8px; font-size:12px; font-weight:600; }
-        .panel-body { flex:1; overflow-y:auto; padding:8px 12px; display:flex; flex-direction:column; }
-        .brand-input-row { display:flex; align-items:center; gap:8px; padding:7px 10px; background:#fdfcf9; border:1px solid var(--border); border-radius:var(--radius-sm); margin-bottom:6px; flex-shrink:0; }
-        .brand-input-row input { flex:1; padding:6px 10px; border:1px solid var(--border); background:var(--input-bg); border-radius:4px; font-size:11px; }
-        .btn-add-brand { padding:6px 12px; background:var(--accent); color:#fff; border:none; border-radius:14px; cursor:pointer; font-size:10px; font-weight:500; }
-        .left-inner { display:flex; flex:1; overflow:hidden; }
-        .left-sidebar-cats { width:155px; flex-shrink:0; overflow-y:auto; border-right:1px solid #f0ece5; background:#fdfcf9; padding:2px 0; }
-        .left-sidebar-cats .cat-btn { display:flex; align-items:center; gap:6px; width:100%; padding:7px 10px; border:none; background:transparent; color:var(--text2); font-size:10.5px; cursor:pointer; text-align:left; font-family:var(--font-cn); border-left:2px solid transparent; white-space:nowrap; }
-        .left-sidebar-cats .cat-btn.active { background:#fdf8f0; color:var(--accent2); border-left-color:var(--accent); font-weight:600; }
-        .left-subcat-area { flex:1; overflow-y:auto; padding:8px 10px; }
-        .group-label { font-size:9px; color:#b5ada0; letter-spacing:0.05em; margin:5px 0 2px; text-transform:uppercase; }
-        .subcat-btn { display:inline-block; padding:5px 11px; margin:2px 2px; border:1px solid var(--border); background:var(--btn-bg); color:#5c554a; border-radius:16px; cursor:pointer; font-size:10.5px; font-family:var(--font-cn); transition:0.2s; }
-        .subcat-btn.selected { background:#fef9f0; border-color:var(--accent); color:var(--accent2); font-weight:500; }
-        .color-swatch { display:inline-block; width:14px; height:14px; border-radius:3px; margin-right:4px; vertical-align:middle; border:1px solid #ddd; }
-        .right-top-tags { padding:8px 12px; border-bottom:1px solid var(--border); background:#fefdfa; flex-shrink:0; min-height:38px; display:flex; flex-wrap:wrap; gap:4px; align-items:center; }
-        .selected-tag-pill { display:inline-flex; align-items:center; gap:3px; padding:3px 9px; background:#fdf8f0; border:1px solid #e5d5b8; border-radius:12px; font-size:9.5px; color:var(--accent2); cursor:pointer; }
-        .brand-tag-special { border:1.5px solid var(--accent); background:#fef8ed; }
-        .btn-generate { padding:8px 18px; background:linear-gradient(135deg,#c9a96e,#a8853f); color:#fff; border:none; border-radius:18px; cursor:pointer; font-weight:600; font-size:11px; box-shadow:0 3px 10px rgba(168,133,63,0.25); }
-        .prompts-scroll-area { flex:1; overflow-y:auto; padding:6px 8px; }
-        .prompt-card { background:#fefdfa; border:1px solid #ece7dd; border-radius:var(--radius-sm); margin-bottom:6px; }
-        .prompt-card summary { display:flex; align-items:center; gap:8px; padding:8px 10px; cursor:pointer; list-style:none; font-size:11px; font-weight:500; }
-        .prompt-card .p-num { font-weight:700; font-size:18px; color:#d5ccbb; min-width:24px; text-align:center; }
-        .prompt-content { padding:6px 10px 10px 40px; font-size:10px; line-height:1.6; color:#5c554a; border-top:1px solid #f5f1ea; }
-        .prompt-section { margin-bottom:5px; padding:5px 7px; background:#fdfcf9; border-radius:4px; border:1px dashed #e8e2d5; }
-        .prompt-section .section-label { font-size:9px; font-weight:700; color:var(--accent2); letter-spacing:0.05em; margin-bottom:2px; }
-        .btn-copy-small { display:inline-block; margin-top:2px; padding:3px 8px; background:#faf7f2; border:1px solid #e5dfd5; border-radius:8px; cursor:pointer; font-size:8.5px; color:#8b8275; transition:0.2s; margin-right:3px; }
-        .btn-copy-small:hover { background:#f0ebe0; border-color:#c5bca8; color:#4a4540; }
-        .btn-copy-small.copied { background:#e8f5e9; border-color:#a5d6a7; color:#2e7d32; }
-        .toast { position:fixed; top:20px; left:50%; transform:translateX(-50%); background:#3a3530; color:#f5efe5; padding:8px 20px; border-radius:20px; font-size:11px; z-index:999; opacity:0; transition:opacity 0.35s; pointer-events:none; }
-        .toast.show { opacity:1; }
-        @media (max-width:900px) { .main-symmetric { flex-direction:column; } .panel-left,.panel-right { width:100%; max-height:48%; } }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: var(--font);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            letter-spacing: 0.01em;
+            -webkit-font-smoothing: antialiased;
+        }
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3a3d47;
+            border-radius: 3px;
+        }
+        .header {
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            padding: 10px 22px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex-shrink: 0;
+            z-index: 10;
+            box-shadow: var(--shadow-sm);
+        }
+        .header .logo-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #d4ba8a, #a8853f);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            color: #1a1c22;
+            flex-shrink: 0;
+        }
+        .header .brand-name {
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 0.04em;
+            color: #e2e4e9;
+            font-family: var(--font-cn);
+        }
+        .header .brand-sub {
+            font-size: 9px;
+            letter-spacing: 0.08em;
+            color: var(--text3);
+            text-transform: uppercase;
+            font-weight: 400;
+        }
+        .header .spacer {
+            flex: 1;
+        }
+        .header .mode-badge {
+            font-size: 9px;
+            letter-spacing: 0.06em;
+            background: rgba(201, 169, 110, 0.1);
+            color: var(--accent);
+            padding: 5px 12px;
+            border-radius: 16px;
+            border: 1px solid rgba(201, 169, 110, 0.25);
+            font-family: var(--font-cn);
+        }
+        .main-layout {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            gap: 0;
+        }
+        .panel-left {
+            width: 420px;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+        }
+        .panel-right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background: var(--bg);
+        }
+        .panel-left-header {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0;
+            font-weight: 600;
+            font-size: 12px;
+            letter-spacing: 0.04em;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-cn);
+        }
+        .panel-left-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px 10px;
+        }
+        .panel-right-header {
+            padding: 10px 16px;
+            border-bottom: 1px solid var(--border);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            font-size: 12px;
+            letter-spacing: 0.04em;
+            font-family: var(--font-cn);
+        }
+        .panel-right-body {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px 14px;
+        }
+        .brand-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 10px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            margin-bottom: 10px;
+        }
+        .brand-row input {
+            flex: 1;
+            padding: 7px 10px;
+            background: #0d0e11;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius-sm);
+            color: var(--text);
+            font-size: 12px;
+            font-family: var(--font);
+            letter-spacing: 0.02em;
+        }
+        .brand-row input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 2px rgba(201, 169, 110, 0.12);
+        }
+        .brand-row .btn-brand {
+            padding: 7px 14px;
+            background: var(--accent);
+            color: #1a1c22;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 11px;
+            font-family: var(--font-cn);
+            white-space: nowrap;
+            transition: all var(--transition);
+        }
+        .brand-row .btn-brand:hover {
+            background: var(--accent-light);
+            box-shadow: 0 4px 14px rgba(201, 169, 110, 0.3);
+        }
+        .cat-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            margin-bottom: 8px;
+            overflow: hidden;
+            transition: all var(--transition);
+        }
+        .cat-card:hover {
+            border-color: #3a3d47;
+        }
+        .cat-card summary {
+            padding: 10px 14px;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text);
+            user-select: none;
+            font-family: var(--font-cn);
+            letter-spacing: 0.03em;
+            transition: background var(--transition);
+        }
+        .cat-card summary::-webkit-details-marker {
+            display: none;
+        }
+        .cat-card summary:hover {
+            background: #1e2027;
+        }
+        .cat-card .cat-icon {
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        .cat-card .cat-arrow {
+            margin-left: auto;
+            font-size: 10px;
+            color: var(--text3);
+            transition: transform var(--transition);
+        }
+        .cat-card[open] .cat-arrow {
+            transform: rotate(180deg);
+            color: var(--accent);
+        }
+        .cat-card .cat-content {
+            padding: 6px 12px 10px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+        .cat-card .cat-content .group-name {
+            width: 100%;
+            font-size: 9px;
+            color: var(--text3);
+            letter-spacing: 0.06em;
+            margin: 4px 0 2px;
+            text-transform: uppercase;
+            font-weight: 500;
+            font-family: var(--font-cn);
+        }
+        .option-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 5px 11px;
+            border: 1px solid var(--border-light);
+            background: transparent;
+            color: var(--text2);
+            border-radius: 16px;
+            cursor: pointer;
+            font-size: 10.5px;
+            font-family: var(--font-cn);
+            letter-spacing: 0.03em;
+            transition: all var(--transition);
+            white-space: nowrap;
+            user-select: none;
+        }
+        .option-chip:hover {
+            border-color: #555a66;
+            color: #d0d4db;
+            background: #1e2027;
+        }
+        .option-chip.selected {
+            background: rgba(201, 169, 110, 0.12);
+            border-color: var(--accent);
+            color: var(--accent-light);
+            font-weight: 500;
+            box-shadow: 0 0 0 1px rgba(201, 169, 110, 0.2);
+        }
+        .color-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+            flex-shrink: 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .selected-tags-bar {
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--border);
+            background: var(--surface);
+            flex-shrink: 0;
+            min-height: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            align-items: center;
+        }
+        .tag-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 10px;
+            background: rgba(201, 169, 110, 0.08);
+            border: 1px solid rgba(201, 169, 110, 0.3);
+            border-radius: 14px;
+            font-size: 10px;
+            color: var(--accent-light);
+            cursor: pointer;
+            font-family: var(--font-cn);
+            letter-spacing: 0.03em;
+            transition: all var(--transition);
+            white-space: nowrap;
+        }
+        .tag-pill:hover {
+            background: rgba(201, 169, 110, 0.18);
+            border-color: var(--accent);
+        }
+        .tag-pill.brand-tag {
+            border-color: var(--accent);
+            background: rgba(201, 169, 110, 0.15);
+            font-weight: 600;
+        }
+        .action-bar {
+            padding: 8px 12px;
+            border-bottom: 1px solid var(--border);
+            background: var(--surface);
+            flex-shrink: 0;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+        .btn-generate {
+            padding: 9px 20px;
+            background: linear-gradient(135deg, #c9a96e, #a8853f);
+            color: #1a1c22;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 12px;
+            letter-spacing: 0.05em;
+            font-family: var(--font-cn);
+            box-shadow: 0 4px 16px rgba(201, 169, 110, 0.25);
+            transition: all var(--transition);
+            white-space: nowrap;
+        }
+        .btn-generate:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 24px rgba(201, 169, 110, 0.45);
+        }
+        .btn-clear {
+            padding: 7px 14px;
+            background: transparent;
+            border: 1px solid var(--border-light);
+            color: var(--text2);
+            border-radius: 18px;
+            cursor: pointer;
+            font-size: 10.5px;
+            font-family: var(--font-cn);
+            transition: all var(--transition);
+            white-space: nowrap;
+        }
+        .btn-clear:hover {
+            border-color: #6b6f7a;
+            color: #d0d4db;
+        }
+        .empty-output {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text3);
+            font-family: var(--font-cn);
+            font-size: 12px;
+            letter-spacing: 0.04em;
+        }
+        .proposal-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            margin-bottom: 8px;
+            overflow: hidden;
+            transition: all var(--transition);
+        }
+        .proposal-card:hover {
+            border-color: #3a3d47;
+            box-shadow: var(--shadow-md);
+        }
+        .proposal-card summary {
+            padding: 10px 14px;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text);
+            user-select: none;
+            font-family: var(--font-cn);
+            letter-spacing: 0.03em;
+            transition: background var(--transition);
+        }
+        .proposal-card summary::-webkit-details-marker {
+            display: none;
+        }
+        .proposal-card summary:hover {
+            background: #1e2027;
+        }
+        .proposal-card .prop-num {
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--accent);
+            min-width: 28px;
+            text-align: center;
+            font-family: var(--font);
+        }
+        .proposal-card .prop-arrow {
+            margin-left: auto;
+            font-size: 9px;
+            color: var(--text3);
+            transition: transform var(--transition);
+        }
+        .proposal-card[open] .prop-arrow {
+            transform: rotate(180deg);
+            color: var(--accent);
+        }
+        .proposal-card .prop-content {
+            padding: 8px 14px 12px 52px;
+            font-size: 10.5px;
+            line-height: 1.7;
+            color: var(--text2);
+            border-top: 1px solid var(--border);
+            font-family: var(--font-cn);
+            letter-spacing: 0.02em;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .prop-section {
+            background: #0d0e11;
+            border-radius: var(--radius-sm);
+            padding: 8px 10px;
+            border: 1px solid var(--border);
+        }
+        .prop-section .sec-label {
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 0.06em;
+            margin-bottom: 3px;
+            text-transform: uppercase;
+            font-family: var(--font-cn);
+        }
+        .btn-copy-prop {
+            display: inline-block;
+            margin-top: 4px;
+            padding: 4px 10px;
+            background: transparent;
+            border: 1px solid var(--border-light);
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 9px;
+            color: var(--text2);
+            font-family: var(--font-cn);
+            letter-spacing: 0.04em;
+            transition: all var(--transition);
+        }
+        .btn-copy-prop:hover {
+            background: #1e2027;
+            border-color: #5a5e69;
+            color: #d0d4db;
+        }
+        .btn-copy-prop.copied {
+            background: rgba(46, 204, 113, 0.1);
+            border-color: rgba(46, 204, 113, 0.4);
+            color: #2ecc71;
+        }
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #2a2d35;
+            color: #e2e4e9;
+            padding: 10px 22px;
+            border-radius: 22px;
+            font-size: 11px;
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.35s;
+            pointer-events: none;
+            font-family: var(--font-cn);
+            letter-spacing: 0.04em;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-light);
+        }
+        .toast.show {
+            opacity: 1;
+        }
+        @media (max-width: 1000px) {
+            .main-layout {
+                flex-direction: column;
+            }
+            .panel-left {
+                width: 100%;
+                max-height: 42%;
+            }
+            .panel-right {
+                flex: 1;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="header">
-        <div class="logo">包</div>
-        <span class="title">包装设计智能体</span>
-        <span class="badge">全系统保留 · 八组方案 · 2026新规</span>
+        <div class="logo-icon">包</div>
+        <span class="brand-name">包装设计智能体</span>
+        <span class="brand-sub">Packaging AI Agent</span>
+        <span class="spacer"></span>
+        <span class="mode-badge">九组同源扩展 · 场景一致 · V13</span>
     </div>
-    <div class="main-symmetric">
+    <div class="main-layout">
         <div class="panel-left">
-            <div class="panel-header">📂 分类选择<span style="margin-left:auto;font-size:10px;color:#b0a99e;">品牌名 → 分类</span></div>
-            <div class="panel-body">
-                <div class="brand-input-row">
-                    <span>🏷️</span><span style="font-size:10px;">品牌名</span>
-                    <input type="text" id="brandNameInput" placeholder="输入品牌名称，如 AURA、LOEWE…" maxlength="40" onkeydown="if(event.key==='Enter')addBrandTag()">
-                    <button class="btn-add-brand" onclick="addBrandTag()">+ 添加</button>
+            <div class="panel-left-header">📂 分类选择 <span style="color:var(--text3);font-weight:400;font-size:10px;margin-left:auto;">单选 · 输入品牌自动推荐</span></div>
+            <div class="panel-left-body">
+                <div class="brand-row">
+                    <span style="font-size:13px;">🏷️</span>
+                    <span style="font-size:10px;color:var(--text3);white-space:nowrap;">品牌/产品</span>
+                    <input type="text" id="brandInput" placeholder="输入品牌或产品名称，自动识别行业…" maxlength="40" onkeydown="if(event.key==='Enter')addBrand()">
+                    <button class="btn-brand" onclick="addBrand()">+ 添加</button>
                 </div>
-                <div class="left-inner">
-                    <div class="left-sidebar-cats" id="leftSidebarCats"></div>
-                    <div class="left-subcat-area" id="leftSubcatArea"></div>
-                </div>
+                <div id="categoriesContainer"></div>
             </div>
         </div>
         <div class="panel-right">
-            <div class="panel-header">📋 八组完整展示方案<span id="tagCountLabel" style="margin-left:auto;font-size:10px;">已选 0 项</span></div>
-            <div class="right-top-tags" id="rightTopTags"><span style="color:#c5bdb0;font-size:10px;">等待选择…</span></div>
-            <div style="padding:7px 12px;border-bottom:1px solid var(--border);display:flex;gap:8px;">
-                <button class="btn-generate" onclick="generateFullProposal()">✦ 生成八组完整展示方案</button>
-                <button onclick="clearAllSelections()" style="padding:6px 12px;border:1px solid #d5cfc2;background:transparent;border-radius:16px;cursor:pointer;font-size:10px;">清空全部</button>
+            <div class="panel-right-header">📋 九组同源扩展方案<span id="tagCountLabel" style="margin-left:auto;font-size:10px;color:var(--text3);">已选 0 项</span></div>
+            <div class="selected-tags-bar" id="selectedTagsBar"><span style="color:var(--text3);font-size:10px;">等待选择标签…</span></div>
+            <div class="action-bar">
+                <button class="btn-generate" onclick="generateProposal()">✦ 生成九组同源扩展方案</button>
+                <button class="btn-clear" onclick="clearAll()">清空全部</button>
+                <span class="tag-count" id="tagCountText">已选 0 项</span>
             </div>
-            <div class="prompts-scroll-area" id="promptsScrollArea"><div style="text-align:center;padding:30px;color:#c5bdb0;">📝<br>选择标签后生成八组完整方案</div></div>
+            <div class="panel-right-body" id="outputArea">
+                <div class="empty-output"><span class="empty-icon">📝</span>请在左侧选择标签<br>每组仅可选一项，选择后点击生成</div>
+            </div>
         </div>
     </div>
     <div class="toast" id="toast"></div>
+
     <script>
-        // ==================== 全系统数据 ====================
+        // ==================== 全系统数据库 ====================
         const categoryData = {
-            '行业包装分类': { icon: '📦', sub: { '食品': ['食品包装','休闲零食包装','坚果包装','糖果包装','巧克力包装','糕点包装','烘焙包装'], '茶咖饮料': ['茶叶包装','咖啡包装','饮料包装','矿泉水包装','果汁包装','乳制品包装'], '酒类': ['酒类包装','白酒包装','红酒包装','洋酒包装','啤酒包装'], '保健品药品': ['保健品包装','营养品包装','中药包装','西药包装','医疗器械包装'], '美妆洗护': ['美妆包装','护肤品包装','面膜包装','精华液包装','香水包装','彩妆包装','洗护包装'], '母婴宠物': ['母婴包装','婴童用品包装','宠物食品包装','宠物用品包装'], '服饰配件': ['服装包装','鞋盒包装','箱包包装','珠宝包装','首饰包装','钟表包装'], '数码家电': ['数码产品包装','手机包装','耳机包装','电脑包装','家电包装','智能硬件包装'], '家居工业': ['家居用品包装','灯具包装','家具包装','五金工具包装','汽车用品包装'], '生鲜农产品': ['农产品包装','生鲜包装','水果包装','海鲜包装','冷链包装'], '电商定制': ['电商包装','快递包装','直播礼盒包装','企业礼盒包装','商务礼品包装','节庆礼盒包装'], '文创IP': ['文创包装','博物馆文创包装','景区文创包装','非遗文创包装','潮玩包装','盲盒包装','IP联名包装'], '高端收藏': ['收藏级包装','奢侈品包装','出口包装'] } },
-            '包装结构系统': { icon: '📐', sub: { '盒型': ['天地盖盒','书型盒','抽屉盒','翻盖盒','磁吸盒','双开门盒','折叠盒','异形盒','圆筒盒','六边形盒','八边形盒','飞机盒','卡盒','展示盒','套筒盒','手提盒','礼品盒','悬挂盒','组合盒'], '袋型': ['自立袋','拉链袋','吸嘴袋','真空袋','铝箔袋','风琴袋','背封袋','三边封袋','四边封袋','八边封袋','异形袋','纸袋','牛皮纸袋','环保袋'], '瓶罐': ['玻璃瓶','喷雾瓶','滴管瓶','真空瓶','广口瓶','易拉罐','铁罐','陶瓷罐','木盒','皮盒','亚克力盒'] } },
-            '包装材质系统': { icon: '🧱', sub: { '纸类': ['白卡纸','铜版纸','双铜纸','灰板纸','灰底白板纸','牛皮纸','白牛皮纸','特种纸','艺术纸','珠光纸','触感纸','压纹纸','布纹纸','充皮纸','硫酸纸','金银卡纸','黑卡纸','彩卡纸'], '瓦楞纸板': ['瓦楞纸','E坑纸','F坑纸','B坑纸','C坑纸','AB坑纸','蜂窝纸板','纸浆模塑'], '塑料': ['PET','PETG','PVC','PP','PE','ABS','亚克力','透明塑料','磨砂塑料','植绒吸塑','高透吸塑'], '缓冲': ['EVA','高密度海绵','珍珠棉','XPE泡棉'], '布艺皮革': ['植绒布','丝绸','绒布','超纤皮','PU皮革','真皮','仿皮'], '木竹': ['木材','实木','竹材','竹编','藤编','密度板'], '金属': ['不锈钢','铝板','镀锌板','马口铁','铜板','黄铜','钛金板','镜面金属','拉丝金属'], '玻璃陶瓷': ['玻璃','超白玻璃','高透玻璃','磨砂玻璃','电镀玻璃','水晶','树脂','陶瓷'], '环保': ['环保纸浆','玉米纤维','甘蔗浆','秸秆材料','生物降解塑料','环保复合材料','FSC认证纸','菌丝体包装','rPET再生海洋塑料','石头纸'] } },
-            '包装工艺系统': { icon: '🔨', sub: { '印刷': ['四色印刷','专色印刷','潘通专色印刷','丝网印刷','柔版印刷','凹版印刷','胶版印刷','数码印刷','喷墨印刷'], '烫印': ['烫金','烫银','红金烫印','镭射烫印','全息烫印','冷烫工艺','热烫工艺'], 'UV': ['UV工艺','局部UV工艺','逆向UV工艺','磨砂UV工艺'], '雕刻切割': ['激光雕刻工艺','激光镂空工艺','刀模异形切割','模切工艺','冲孔工艺','开窗工艺','透明开窗工艺'], '击凹凸压纹': ['击凸工艺','击凹工艺','浮雕工艺','深压纹工艺','压纹工艺','压花工艺'], '覆膜': ['覆光膜工艺','覆哑膜工艺','触感膜工艺','防刮膜工艺','镭射膜工艺','珠光膜工艺','镀铝膜工艺'], '表面处理': ['电镀工艺','真空镀膜工艺','镜面处理工艺','磨砂处理工艺','木纹转印工艺','石纹转印工艺'], '装饰': ['滴胶工艺','水晶滴胶工艺','植绒工艺','包布工艺','包皮工艺','缝线工艺','丝带工艺','磁吸工艺','抽拉工艺'], '特殊': ['香味油墨工艺','夜光工艺','温变工艺','防伪码工艺','二维码工艺','AR互动工艺','NFC芯片工艺','RFID工艺'] } },
-            '包装风格系统': { icon: '🎨', sub: { '极简': ['现代极简风','国际极简风','北欧极简风','意式极简风'], '轻奢': ['轻奢风','高级轻奢风','高奢风','奢侈品风'], '商务': ['商务风','国际商务风','欧美高端风','法式轻奢风'], '复古': ['法式宫廷风','英伦复古风','美式复古风','工业复古风'], '东方': ['新中式风','东方雅奢风','国潮风','中国风','故宫风','非遗文化风','禅意风','侘寂风'], '自然': ['原木自然风','生态环保风'], '科技': ['科技未来风','数字科技风','AI科技风','赛博朋克风','蒸汽朋克风','机械工业风'], '潮流': ['潮流街头风','潮玩风','盲盒风','二次元风','动漫IP风','卡通风','萌系风'], '艺术': ['插画风','手绘风','水彩风','油画风','孟菲斯风','波普艺术风','现代艺术风','博物馆风','文创风'], '人群': ['女性轻奢风','男性商务风','儿童趣味风'], '特定': ['节庆礼盒风','收藏级礼盒风'] } },
-            '包装颜色系统': { icon: '🌈', sub: { '红': ['中国红','故宫红','朱砂红','正红色','酒红色','绛红色','枣红色','橙红色'], '橙': ['爱马仕橙','琥珀橙','活力橙','落日橙','南瓜橙'], '金': ['香槟金','玫瑰金','古铜金','哑光金','鎏金色','钛金色'], '白': ['珍珠白','象牙白','暖白色','奶油白','米白色','香草白'], '灰': ['高级灰','水泥灰','烟灰色','石墨灰','深空灰','银灰色'], '黑': ['曜石黑','钢琴黑','哑光黑','碳黑色','午夜黑'], '蓝': ['科技蓝','深海蓝','宝石蓝','皇家蓝','蒂芙尼蓝','湖蓝色','冰川蓝','孔雀蓝','天空蓝'], '绿': ['青绿色','祖母绿','森林绿','橄榄绿','薄荷绿','抹茶绿','牛油果绿','翡翠绿','荧光绿'], '暖棕': ['香槟色','奶茶色','焦糖色','驼色','卡其色','可可棕','咖啡棕','巧克力棕','胡桃木色'], '紫': ['紫罗兰色','深紫色','薰衣草紫'], '粉': ['莫兰迪粉','樱花粉','裸粉色','豆沙粉','珊瑚粉','玫红色','荧光粉'], '渐变': ['彩虹渐变色','镭射渐变色','极光渐变色','金属渐变色'] }, isColor: true },
-            // ===== 必须保留的系统 =====
-            '包装展开图系统': { icon: '📐', sub: { '盒型展开图': ['天地盖展开图','书型盒展开图','抽屉盒展开图','磁吸盒展开图','双开门盒展开图','飞机盒展开图','折叠盒展开图','手提盒展开图','异形盒展开图','展示盒展开图','卡盒展开图','套筒盒展开图','圆筒盒展开图','六边形盒展开图','八边形盒展开图','礼品盒展开图'], '袋型展开图': ['自立袋展开图','拉链袋展开图','吸嘴袋展开图','真空袋展开图','铝箔袋展开图','包装纸袋展开图','手提袋展开图'], '配件展开图': ['不干胶标签展开图','瓶贴展开图','腰封展开图','吊牌展开图','说明书展开图'], '内托展开图': ['内托展开图','EVA展开图','珍珠棉展开图','吸塑展开图','纸浆模塑展开图'] } },
-            '包装刀模图系统': { icon: '🗡️', sub: { '刀线类型': ['外轮廓刀线','模切线','裁切线','折叠线','压痕线','开槽线','冲孔线','开窗线','镂空线','插舌线','卡扣线','锁扣线','粘贴线','定位线','对位线','出血线','安全线','工艺定位线','烫金定位线','UV定位线','击凸定位线','二维码定位线','条码定位线','防伪码定位线'] } },
-            '包装拼版系统': { icon: '🧩', sub: { '拼版方式': ['单拼版','双拼版','四拼版','六拼版','八拼版','十二拼版','十六拼版','二十四拼版','三十二拼版','正反拼版','天地盖拼版','书型盒拼版','抽屉盒拼版','异形盒拼版','标签拼版','说明书拼版','纸袋拼版','礼盒拼版','彩盒拼版','瓦楞箱拼版','大版拼版','小版拼版','混拼版','专版拼版','数码拼版','胶印拼版'] } },
-            '包装尺寸标注系统': { icon: '📏', sub: { '尺寸参数': ['总长','总宽','总高','展开尺寸','成品尺寸','内尺寸','外尺寸','壁厚','灰板厚度','纸张厚度','EVA厚度','海绵厚度','吸塑厚度','内托深度','折边尺寸','糊口尺寸','插舌尺寸','开窗尺寸','提手尺寸'] }, hasInput: true },
-            '出血系统': { icon: '📏', sub: { '出血值': ['1mm出血','2mm出血','3mm出血','5mm出血','10mm出血'], '常用参考': ['彩盒3mm出血','礼盒3mm出血','纸袋3mm出血','标签2mm出血','海报3mm出血','大型包装5mm出血'] } },
-            '灰板厚度数据库': { icon: '📚', sub: { '灰板厚度': ['800g灰板','1000g灰板','1200g灰板','1400g灰板','1500g灰板','1800g灰板','2000g灰板','2500g灰板','3000g灰板'] } },
-            '包装字体系统': { icon: '🔤', sub: { '中文': ['现代黑体','宋体','楷书体','行书体','隶书体','篆书体','毛笔书法体'], '艺术': ['国潮字体','潮流字体','科技字体','未来感字体','轻奢字体'], '英文': ['高端衬线字体','英文无衬线字体','奢侈品字体'] } },
-            '心理感受系统': { icon: '💭', sub: { '感受': ['高级感','品质感','价值感','信任感','科技感','天然感','环保感','专业感','健康感','年轻感','时尚感','尊贵感','稀缺感','限定感','收藏感','仪式感','神秘感','愉悦感','治愈感','亲和感','送礼感','惊喜感','开箱体验感'] } },
-            '消费定位系统': { icon: '🎯', sub: { '定位': ['低端走量型','中端大众型','中高端精品型','高端礼赠型','轻奢型','奢侈品型','收藏级型','企业定制型','商务礼赠型','联名限定型','IP授权型','节庆限定型','电商专供型','直播专供型','出口国际型'] } },
-            'AI提示词要素': { icon: '🤖', sub: { '要素': ['多视图陈列','C4D渲染','Octane渲染器','8K超高清','产品级精修','柔光箱布光','微水泥台面','博物馆级展陈','包装设计获奖作品级','正面主视图C位','45°俯视立体视角','侧面结构展示'] } }
+            '行业包装分类': { icon: '📦', sub: { '食品': ['食品包装', '休闲零食包装', '坚果包装', '糖果包装', '巧克力包装', '糕点包装', '烘焙包装'],
+                    '茶咖饮料': ['茶叶包装', '咖啡包装', '饮料包装', '矿泉水包装', '果汁包装', '乳制品包装'], '酒类': ['酒类包装', '白酒包装', '红酒包装',
+                        '洋酒包装', '啤酒包装'], '保健品药品': ['保健品包装', '营养品包装', '中药包装', '西药包装', '医疗器械包装'], '美妆洗护': ['美妆包装',
+                        '护肤品包装', '面膜包装', '精华液包装', '香水包装', '彩妆包装', '洗护包装'], '母婴宠物': ['母婴包装', '婴童用品包装', '宠物食品包装',
+                        '宠物用品包装'], '服饰配件': ['服装包装', '鞋盒包装', '箱包包装', '珠宝包装', '首饰包装', '钟表包装'], '数码家电': ['数码产品包装',
+                        '手机包装', '耳机包装', '电脑包装', '家电包装', '智能硬件包装'], '家居工业': ['家居用品包装', '灯具包装', '家具包装', '五金工具包装',
+                        '汽车用品包装'], '生鲜农产品': ['农产品包装', '生鲜包装', '水果包装', '海鲜包装', '冷链包装'], '电商定制': ['电商包装', '快递包装',
+                        '直播礼盒包装', '企业礼盒包装', '商务礼品包装', '节庆礼盒包装'], '文创IP': ['文创包装', '博物馆文创包装', '景区文创包装', '非遗文创包装',
+                        '潮玩包装', '盲盒包装', 'IP联名包装'], '高端收藏': ['收藏级包装', '奢侈品包装', '出口包装'] } },
+            '包装结构系统': { icon: '📐', sub: { '盒型': ['天地盖盒', '书型盒', '抽屉盒', '翻盖盒', '磁吸盒', '双开门盒', '折叠盒', '异形盒', '圆筒盒',
+                    '六边形盒', '八边形盒', '飞机盒', '卡盒', '展示盒', '套筒盒', '手提盒', '礼品盒', '悬挂盒', '组合盒'], '袋型': ['自立袋', '拉链袋',
+                    '吸嘴袋', '真空袋', '铝箔袋', '风琴袋', '背封袋', '三边封袋', '四边封袋', '八边封袋', '异形袋', '纸袋', '牛皮纸袋', '环保袋'],
+                '瓶罐': ['玻璃瓶', '喷雾瓶', '滴管瓶', '真空瓶', '广口瓶', '易拉罐', '铁罐', '陶瓷罐', '木盒', '皮盒', '亚克力盒'] } },
+            '包装材质系统': { icon: '🧱', sub: { '纸类': ['白卡纸', '铜版纸', '双铜纸', '灰板纸', '灰底白板纸', '牛皮纸', '白牛皮纸', '特种纸', '艺术纸',
+                    '珠光纸', '触感纸', '压纹纸', '布纹纸', '充皮纸', '硫酸纸', '金银卡纸', '黑卡纸', '彩卡纸'], '瓦楞纸板': ['瓦楞纸', 'E坑纸', 'F坑纸',
+                    'B坑纸', 'C坑纸', 'AB坑纸', '蜂窝纸板', '纸浆模塑'], '塑料': ['PET', 'PETG', 'PVC', 'PP', 'PE', 'ABS', '亚克力',
+                    '透明塑料', '磨砂塑料', '植绒吸塑', '高透吸塑'], '缓冲': ['EVA', '高密度海绵', '珍珠棉', 'XPE泡棉'], '布艺皮革': ['植绒布', '丝绸',
+                    '绒布', '超纤皮', 'PU皮革', '真皮', '仿皮'], '木竹': ['木材', '实木', '竹材', '竹编', '藤编', '密度板'], '金属': ['不锈钢', '铝板',
+                    '镀锌板', '马口铁', '铜板', '黄铜', '钛金板', '镜面金属', '拉丝金属'], '玻璃陶瓷': ['玻璃', '超白玻璃', '高透玻璃', '磨砂玻璃', '电镀玻璃',
+                    '水晶', '树脂', '陶瓷'], '环保': ['环保纸浆', '玉米纤维', '甘蔗浆', '秸秆材料', '生物降解塑料', '环保复合材料', 'FSC认证纸', '菌丝体包装',
+                    'rPET再生海洋塑料', '石头纸'] } },
+            '包装工艺系统': { icon: '🔨', sub: { '印刷': ['四色印刷', '专色印刷', '潘通专色印刷', '丝网印刷', '柔版印刷', '凹版印刷', '胶版印刷', '数码印刷',
+                    '喷墨印刷'], '烫印': ['烫金', '烫银', '红金烫印', '镭射烫印', '全息烫印', '冷烫工艺', '热烫工艺'], 'UV': ['UV工艺', '局部UV工艺',
+                    '逆向UV工艺', '磨砂UV工艺'], '雕刻切割': ['激光雕刻工艺', '激光镂空工艺', '刀模异形切割', '模切工艺', '冲孔工艺', '开窗工艺', '透明开窗工艺'],
+                '击凹凸压纹': ['击凸工艺', '击凹工艺', '浮雕工艺', '深压纹工艺', '压纹工艺', '压花工艺'], '覆膜': ['覆光膜工艺', '覆哑膜工艺', '触感膜工艺',
+                    '防刮膜工艺', '镭射膜工艺', '珠光膜工艺', '镀铝膜工艺'], '表面处理': ['电镀工艺', '真空镀膜工艺', '镜面处理工艺', '磨砂处理工艺', '木纹转印工艺',
+                    '石纹转印工艺'], '装饰': ['滴胶工艺', '水晶滴胶工艺', '植绒工艺', '包布工艺', '包皮工艺', '缝线工艺', '丝带工艺', '磁吸工艺', '抽拉工艺'],
+                '特殊': ['香味油墨工艺', '夜光工艺', '温变工艺', '防伪码工艺', '二维码工艺', 'AR互动工艺', 'NFC芯片工艺', 'RFID工艺'] } },
+            '包装风格系统': { icon: '🎨', sub: { '极简': ['现代极简风', '国际极简风', '北欧极简风', '意式极简风'], '轻奢': ['轻奢风', '高级轻奢风', '高奢风',
+                    '奢侈品风'], '商务': ['商务风', '国际商务风', '欧美高端风', '法式轻奢风'], '复古': ['法式宫廷风', '英伦复古风', '美式复古风', '工业复古风'],
+                '东方': ['新中式风', '东方雅奢风', '国潮风', '中国风', '故宫风', '非遗文化风', '禅意风', '侘寂风'], '自然': ['原木自然风', '生态环保风'],
+                '科技': ['科技未来风', '数字科技风', 'AI科技风', '赛博朋克风', '蒸汽朋克风', '机械工业风'], '潮流': ['潮流街头风', '潮玩风', '盲盒风', '二次元风',
+                    '动漫IP风', '卡通风', '萌系风'], '艺术': ['插画风', '手绘风', '水彩风', '油画风', '孟菲斯风', '波普艺术风', '现代艺术风', '博物馆风',
+                    '文创风'], '人群': ['女性轻奢风', '男性商务风', '儿童趣味风'], '特定': ['节庆礼盒风', '收藏级礼盒风'] } },
+            '包装颜色系统': { icon: '🌈', sub: { '红': ['中国红', '故宫红', '朱砂红', '正红色', '酒红色', '绛红色', '枣红色', '橙红色'], '橙': [
+                    '爱马仕橙', '琥珀橙', '活力橙', '落日橙', '南瓜橙'], '金': ['香槟金', '玫瑰金', '古铜金', '哑光金', '鎏金色', '钛金色'], '白': [
+                    '珍珠白', '象牙白', '暖白色', '奶油白', '米白色', '香草白'], '灰': ['高级灰', '水泥灰', '烟灰色', '石墨灰', '深空灰', '银灰色'],
+                '黑': ['曜石黑', '钢琴黑', '哑光黑', '碳黑色', '午夜黑'], '蓝': ['科技蓝', '深海蓝', '宝石蓝', '皇家蓝', '蒂芙尼蓝', '湖蓝色', '冰川蓝',
+                    '孔雀蓝', '天空蓝'], '绿': ['青绿色', '祖母绿', '森林绿', '橄榄绿', '薄荷绿', '抹茶绿', '牛油果绿', '翡翠绿', '荧光绿'], '暖棕': ['香槟色',
+                    '奶茶色', '焦糖色', '驼色', '卡其色', '可可棕', '咖啡棕', '巧克力棕', '胡桃木色'], '紫': ['紫罗兰色', '深紫色', '薰衣草紫'], '粉': [
+                    '莫兰迪粉', '樱花粉', '裸粉色', '豆沙粉', '珊瑚粉', '玫红色', '荧光粉'], '渐变': ['彩虹渐变色', '镭射渐变色', '极光渐变色', '金属渐变色'
+                ] }, isColor: true },
+            '包装展开图系统': { icon: '📐', sub: { '盒型展开图': ['天地盖展开图', '书型盒展开图', '抽屉盒展开图', '磁吸盒展开图', '双开门盒展开图', '飞机盒展开图',
+                    '折叠盒展开图', '手提盒展开图', '异形盒展开图', '展示盒展开图', '卡盒展开图', '套筒盒展开图', '圆筒盒展开图', '六边形盒展开图', '八边形盒展开图',
+                    '礼品盒展开图'], '袋型展开图': ['自立袋展开图', '拉链袋展开图', '吸嘴袋展开图', '真空袋展开图', '铝箔袋展开图', '包装纸袋展开图', '手提袋展开图'],
+                '配件展开图': ['不干胶标签展开图', '瓶贴展开图', '腰封展开图', '吊牌展开图', '说明书展开图'], '内托展开图': ['内托展开图', 'EVA展开图', '珍珠棉展开图',
+                    '吸塑展开图', '纸浆模塑展开图'] } },
+            '包装刀模图系统': { icon: '🗡️', sub: { '刀线类型': ['外轮廓刀线', '模切线', '裁切线', '折叠线', '压痕线', '开槽线', '冲孔线', '开窗线', '镂空线',
+                    '插舌线', '卡扣线', '锁扣线', '粘贴线', '定位线', '对位线', '出血线', '安全线', '工艺定位线', '烫金定位线', 'UV定位线', '击凸定位线',
+                    '二维码定位线', '条码定位线', '防伪码定位线'] } },
+            '包装拼版系统': { icon: '🧩', sub: { '拼版方式': ['单拼版', '双拼版', '四拼版', '六拼版', '八拼版', '十二拼版', '十六拼版', '二十四拼版',
+                    '三十二拼版', '正反拼版', '天地盖拼版', '书型盒拼版', '抽屉盒拼版', '异形盒拼版', '标签拼版', '说明书拼版', '纸袋拼版', '礼盒拼版', '彩盒拼版',
+                    '瓦楞箱拼版', '大版拼版', '小版拼版', '混拼版', '专版拼版', '数码拼版', '胶印拼版'] } },
+            '包装尺寸标注系统': { icon: '📏', sub: { '尺寸参数': ['总长', '总宽', '总高', '展开尺寸', '成品尺寸', '内尺寸', '外尺寸', '壁厚', '灰板厚度',
+                    '纸张厚度', 'EVA厚度', '海绵厚度', '吸塑厚度', '内托深度', '折边尺寸', '糊口尺寸', '插舌尺寸', '开窗尺寸', '提手尺寸'] } },
+            '出血系统': { icon: '📏', sub: { '出血值': ['1mm出血', '2mm出血', '3mm出血', '5mm出血', '10mm出血'], '常用参考': ['彩盒3mm出血',
+                    '礼盒3mm出血', '纸袋3mm出血', '标签2mm出血', '海报3mm出血', '大型包装5mm出血'] } },
+            '灰板厚度数据库': { icon: '📚', sub: { '灰板厚度': ['800g灰板', '1000g灰板', '1200g灰板', '1400g灰板', '1500g灰板', '1800g灰板',
+                    '2000g灰板', '2500g灰板', '3000g灰板'] } },
+            '包装字体系统': { icon: '🔤', sub: { '中文': ['现代黑体', '宋体', '楷书体', '行书体', '隶书体', '篆书体', '毛笔书法体'], '艺术': ['国潮字体',
+                    '潮流字体', '科技字体', '未来感字体', '轻奢字体'], '英文': ['高端衬线字体', '英文无衬线字体', '奢侈品字体'] } },
+            '心理感受系统': { icon: '💭', sub: { '感受': ['高级感', '品质感', '价值感', '信任感', '科技感', '天然感', '环保感', '专业感', '健康感', '年轻感',
+                    '时尚感', '尊贵感', '稀缺感', '限定感', '收藏感', '仪式感', '神秘感', '愉悦感', '治愈感', '亲和感', '送礼感', '惊喜感', '开箱体验感'] } },
+            '消费定位系统': { icon: '🎯', sub: { '定位': ['低端走量型', '中端大众型', '中高端精品型', '高端礼赠型', '轻奢型', '奢侈品型', '收藏级型', '企业定制型',
+                    '商务礼赠型', '联名限定型', 'IP授权型', '节庆限定型', '电商专供型', '直播专供型', '出口国际型'] } },
+            'AI提示词要素': { icon: '🤖', sub: { '要素': ['多视图陈列', 'C4D渲染', 'Octane渲染器', '8K超高清', '产品级精修', '柔光箱布光', '微水泥台面',
+                    '博物馆级展陈', '包装设计获奖作品级', '正面主视图C位', '45°俯视立体视角', '侧面结构展示'] } }
         };
 
-        const designConcepts = [
-            { id:'01', name:'极简东方哲思', feature:'大面积留白，墨线勾勒山形，篆书压凹logo', material:'FSC认证纸', structure:'一体成型无胶自锁盒', eco:'碳足迹标签+盲文压印', unfold:'卡盒六面展开图', knife:'外轮廓刀线+折叠线+压痕线' },
-            { id:'02', name:'超现实自然肌理', feature:'苔藓呼吸孔肌理，蕨类叶脉拓印', material:'菌丝体包装', structure:'零废弃展开式', eco:'全成分透明窗+数字水印', unfold:'异形盒六面展开图', knife:'模切线+镂空线+外轮廓刀线' },
-            { id:'03', name:'未来液态金属', feature:'液态金属银流线，镭射光纹随角变色', material:'rPET再生海洋塑料', structure:'替换装设计', eco:'NFC触碰区+产品溯源二维码', unfold:'圆筒盒六面展开图', knife:'裁切线+折叠线+定位线' },
-            { id:'04', name:'孟菲斯波普', feature:'几何解构涂鸦，亮橙薄荷粉红碰撞', material:'可堆肥PLA生物基薄膜', structure:'片材折叠免胶结构', eco:'溯源二维码波普阵列', unfold:'折叠盒六面展开图', knife:'折叠线+压痕线+外轮廓刀线' },
-            { id:'05', name:'生物仿生', feature:'蜂巢六边形网格，蜜蜡黄与深棕渐变', material:'菌丝体包装', structure:'一体成型无胶自锁盒', eco:'碳足迹标签+盲文压印', unfold:'六边形盒六面展开图', knife:'模切线+折叠线+卡扣线' },
-            { id:'06', name:'可降解原生美学', feature:'纸浆自然斑驳，孤行诗句排版', material:'纸质拉链袋+无塑封膜', structure:'去虚伪空间', eco:'大豆油墨+水性涂层', unfold:'拉链袋六面展开图', knife:'裁切线+折叠线+粘贴线' },
-            { id:'07', name:'种子纸可种植', feature:'叶脉压痕与发芽种子线稿', material:'嵌入种子的FSC认证纸', structure:'一体成型无胶盒', eco:'产品溯源二维码', unfold:'卡盒六面展开图', knife:'外轮廓刀线+折叠线+压痕线' },
-            { id:'08', name:'AR交互窗口', feature:'生物基薄膜AR识别窗，荧光青标示点', material:'FSC认证白卡纸', structure:'纸质拉链袋', eco:'NFC触碰区+溯源二维码', unfold:'拉链袋六面展开图', knife:'开窗线+裁切线+定位线' },
-            { id:'09', name:'复古胶片感', feature:'70年代相纸质感，胶片齿孔logo', material:'石头纸', structure:'零废弃展开式信笺盒', eco:'数字水印+碳足迹标签', unfold:'书型盒六面展开图', knife:'折叠线+压痕线+外轮廓刀线' },
-            { id:'10', name:'光栅动画光变', feature:'滑动光栅分子动画，全息青-品红渐变', material:'rPET再生海洋塑料', structure:'替换装滑盖盒', eco:'全成分透明窗+NFC触碰区', unfold:'抽屉盒六面展开图', knife:'裁切线+折叠线+插舌线' },
-            { id:'11', name:'手工匠人痕迹', feature:'手工靛蓝染棉纸，铜模烙烫logo', material:'FSC认证纸', structure:'一体成型无胶盒', eco:'碳足迹标签+盲文压印', unfold:'天地盖六面展开图', knife:'外轮廓刀线+折叠线+定位线' },
-            { id:'12', name:'透明科学窗', feature:'实验室色谱，分子结构丝印', material:'rPET再生海洋塑料', structure:'纸质拉链袋', eco:'全成分透明窗+溯源二维码', unfold:'拉链袋六面展开图', knife:'开窗线+裁切线+对位线' },
-            { id:'13', name:'水墨解构', feature:'宣纸质感泼墨像素点阵，朱砂红印章logo', material:'FSC认证纸', structure:'一体成型无胶自锁盒', eco:'碳足迹标签+溯源二维码', unfold:'书型盒六面展开图', knife:'折叠线+压痕线+外轮廓刀线' },
-            { id:'14', name:'矿物晶体肌理', feature:'紫晶洞微晶纹理，晶面反光凸版压印', material:'石头纸', structure:'零废弃展开式', eco:'数字水印+盲文压印', unfold:'八边形盒六面展开图', knife:'模切线+折叠线+卡扣线' },
-            { id:'15', name:'光影镂空灯笼', feature:'激光镂空分子式剪影，内置透光花窗投影', material:'FSC认证纸', structure:'一体成型无胶自锁盒', eco:'NFC触碰区+溯源二维码', unfold:'圆筒盒六面展开图', knife:'镂空线+裁切线+折叠线' },
-            { id:'16', name:'医用级洁净白', feature:'纯白纸板零干扰，极小字号留白率90%', material:'FSC认证纸板', structure:'替换装设计', eco:'全成分透明窗+溯源二维码', unfold:'卡盒六面展开图', knife:'外轮廓刀线+折叠线+压痕线' },
-            { id:'17', name:'宋版古籍装帧', feature:'手工纸裱函套，鱼尾界行楷体竖排', material:'FSC认证手工纸', structure:'替换装设计', eco:'数字水印+溯源二维码', unfold:'书型盒六面展开图', knife:'折叠线+压痕线+粘贴线' },
-            { id:'18', name:'天然纤维编织', feature:'竹编纹理浮雕，火烙印痕logo', material:'黄麻纤维复合纸', structure:'一体成型盒', eco:'碳足迹标签+溯源二维码', unfold:'天地盖六面展开图', knife:'外轮廓刀线+折叠线+定位线' },
-            { id:'19', name:'温度感手工纸', feature:'羊毛毡感纤维纸，水彩笔触温柔', material:'FSC认证纸', structure:'去虚伪空间包裹式', eco:'碳足迹标签+盲文压印', unfold:'手提盒六面展开图', knife:'折叠线+压痕线+插舌线' },
-            { id:'20', name:'声波香气可视化', feature:'精油声波波形浮雕，香气分子扩散渐变', material:'菌丝体包装', structure:'片材折叠免胶结构', eco:'数字水印+碳足迹标签', unfold:'异形盒六面展开图', knife:'模切线+折叠线+镂空线' }
+        // 九组同源扩展变体参数（仅变化构图角度、光影、细节、空间层次、氛围）
+        const expansionVariants = [
+            { id: '01', suffix: '核心主视图', angle: '正面主视图（居中C位占比45%）、45°俯视立体视角（右侧占比30%）、侧面结构展示（左侧占比25%）',
+                lighting: '柔光箱加侧逆光，柔和投影与精准高光', mood: '标准商业展示氛围，博物馆级展陈质感', detail: '完整展示包装整体形态与品牌视觉' },
+            { id: '02', suffix: '正面特写', angle: '正面平视特写（占比80%），极浅景深突出主体', lighting: '单侧柔光箱，低色温3200K暖调，边缘渐隐阴影',
+                mood: '静谧高级感，聚焦品牌LOGO与核心图形', detail: '微距展现材质纹理与烫金工艺细节' },
+            { id: '03', suffix: '45°动态视角', angle: '45°动态仰视视角（占比70%），包装悬浮微倾', lighting: '侧逆光为主，高色温5500K冷调，锐利高光边缘',
+                mood: '现代科技感，强烈的立体感与空间张力', detail: '凸显结构层次与光影在棱角处的切割效果' },
+            { id: '04', suffix: '俯视平面构成', angle: '完全俯视正投影（占比90%），平面构成感强烈', lighting: '均匀顶光漫反射，无阴影平面光', mood: '极简平面设计感，强调图形与版式关系',
+                detail: '展示包装顶部图案、色彩系统与版面布局' },
+            { id: '05', suffix: '侧视结构剖析', angle: '纯侧面正投影（占比75%），展示厚度与开合结构', lighting: '双侧光均衡照明，清晰呈现结构线',
+            mood: '工程美学，理性而精致', detail: '重点呈现盒型厚度、磁吸结构、展开方向' },
+            { id: '06', suffix: '微距材质特写', angle: '超微距特写（占比95%），只展示局部表面', lighting: '单侧强侧光，强调表面起伏与纹理凹凸',
+                mood: '触感诱发，极致细节呈现', detail: '放大纸张纤维、烫金反光、UV涂层厚度' },
+            { id: '07', suffix: '光影剧场', angle: '正面偏上15°视角（占比65%），投射戏剧化长阴影',
+                lighting: '单束聚光灯从上方45°射入，深色背景，强烈明暗对比', mood: '戏剧化高级感，如博物馆藏品展示', detail: '利用光影塑造包装立体轮廓，强化仪式感' },
+            { id: '08', suffix: '悬浮空间感', angle: '包装悬浮空中（占比60%），周围留白大量空间', lighting: '底部柔光补光，顶部主光，空气感微尘粒子悬浮',
+                mood: '空灵纯净，超现实展示', detail: '展现包装整体形态与比例关系，空间感强' },
+            { id: '09', suffix: '环境氛围融合', angle: '包装置于场景中（占比55%），柔和融入背景', lighting: '自然光模拟，暖调氛围光，浅景深虚化背景',
+                mood: '生活美学，温暖而亲近', detail: '包装与道具（石材、植物、织物）和谐共存，突出使用场景' }
         ];
 
-        let activeCategory = '行业包装分类';
+        // ==================== 本地关键词规则库（自动适配模块） ====================
+        const autoMatchRules = [
+            { keywords: ['茶', '茗', '龙井', '普洱', '铁观音', '大红袍', '碧螺春', '毛尖', '白茶', '红茶', '绿茶', '乌龙', '花茶', '黑茶', '岩茶',
+                    '单丛', '沱茶', '砖茶', '茶业', '茶庄', '茶坊', '茶道', '茶礼', '茶文化', '工夫茶', '袋泡茶'], match: { '行业包装分类': { group: '茶咖饮料',
+                        item: '茶叶包装' }, '包装风格系统': { group: '东方', item: '东方雅奢风' }, '包装结构系统': { group: '盒型', item: '书型盒' },
+                    '包装材质系统': { group: '纸类', item: '特种纸' }, '包装工艺系统': { group: '烫印', item: '烫金' }, '包装颜色系统': { group: '金',
+                        item: '鎏金色' }, '包装字体系统': { group: '中文', item: '书法体' }, '心理感受系统': { group: '感受', item: '仪式感' },
+                    '消费定位系统': { group: '定位', item: '高端礼赠型' } } },
+            { keywords: ['咖啡', 'coffee', '拿铁', '摩卡', '美式', '意式', '浓缩', '卡布奇诺', '速溶咖啡', '咖啡豆', '挂耳', '冷萃', '手冲'],
+                match: { '行业包装分类': { group: '茶咖饮料', item: '咖啡包装' }, '包装风格系统': { group: '极简', item: '现代极简风' },
+                    '包装结构系统': { group: '袋型', item: '自立袋' }, '包装材质系统': { group: '纸类', item: '牛皮纸' }, '包装工艺系统': { group: '烫印',
+                        item: '烫银' }, '包装颜色系统': { group: '暖棕', item: '咖啡棕' }, '包装字体系统': { group: '英文',
+                    item: '英文无衬线字体' }, '心理感受系统': { group: '感受', item: '品质感' }, '消费定位系统': { group: '定位', item: '中高端精品型' } } },
+            { keywords: ['酒', '白酒', '红酒', '洋酒', '啤酒', '威士忌', '白兰地', '伏特加', '茅台', '五粮液', '拉菲', 'XO', '干邑', '清酒', '黄酒',
+                    '葡萄酒', '香槟', '酿造', '酒庄', '酒业', '酒厂', '老窖', '特曲'], match: { '行业包装分类': { group: '酒类', item: '酒类包装' },
+                    '包装风格系统': { group: '轻奢', item: '轻奢风' }, '包装结构系统': { group: '盒型', item: '天地盖盒' }, '包装材质系统': { group: '纸类',
+                        item: '灰板纸' }, '包装工艺系统': { group: '烫印', item: '烫金' }, '包装颜色系统': { group: '黑', item: '曜石黑' },
+                    '包装字体系统': { group: '中文', item: '宋体' }, '心理感受系统': { group: '感受', item: '尊贵感' }, '消费定位系统': { group: '定位',
+                        item: '奢侈品型' } } },
+            { keywords: ['美妆', '护肤', '精华', '面膜', '面霜', '乳液', '化妆', '彩妆', '口红', '唇膏', '粉底', '眼影', '腮红', '卸妆', '洁面', '爽肤水',
+                    '隔离', '防晒', 'BB霜', 'CC霜', '气垫'], match: { '行业包装分类': { group: '美妆洗护', item: '美妆包装' },
+                    '包装风格系统': { group: '极简', item: '现代极简风' }, '包装结构系统': { group: '盒型', item: '磁吸盒' }, '包装材质系统': { group: '纸类',
+                        item: '白卡纸' }, '包装工艺系统': { group: 'UV', item: 'UV工艺' }, '包装颜色系统': { group: '蓝', item: '蒂芙尼蓝' },
+                    '包装字体系统': { group: '中文', item: '现代黑体' }, '心理感受系统': { group: '感受', item: '高级感' },
+                '消费定位系统': { group: '定位', item: '高端礼赠型' } } },
+            { keywords: ['香水', 'perfume', '香氛', '香薰', '精油', '古龙', '淡香', '浓香', '花香', '木质香', '东方香'], match: { '行业包装分类': { group: '美妆洗护',
+                        item: '香水包装' }, '包装风格系统': { group: '轻奢', item: '奢侈品风' }, '包装结构系统': { group: '盒型', item: '抽屉盒' },
+                    '包装材质系统': { group: '玻璃陶瓷', item: '玻璃' }, '包装工艺系统': { group: '表面处理', item: '电镀工艺' },
+                '包装颜色系统': { group: '紫', item: '深紫色' }, '包装字体系统': { group: '英文', item: '奢侈品字体' }, '心理感受系统': { group: '感受',
+                    item: '神秘感' }, '消费定位系统': { group: '定位', item: '奢侈品型' } } },
+            { keywords: ['保健', '营养', '维生素', '钙片', '鱼油', '蛋白粉', '益生菌', '中药', '药材', 'OTC', '药品', '药盒', '医疗器械', '口罩', '试剂',
+                    '检测'], match: { '行业包装分类': { group: '保健品药品', item: '保健品包装' }, '包装风格系统': { group: '自然', item: '生态环保风' },
+                    '包装结构系统': { group: '盒型', item: '天地盖盒' }, '包装材质系统': { group: '环保', item: '环保纸浆' }, '包装工艺系统': { group: '烫印',
+                        item: '烫银' }, '包装颜色系统': { group: '绿', item: '森林绿' }, '包装字体系统': { group: '中文', item: '现代黑体' },
+                    '心理感受系统': { group: '感受', item: '健康感' }, '消费定位系统': { group: '定位', item: '中端大众型' } } },
+            { keywords: ['珠宝', '首饰', '项链', '戒指', '耳环', '手镯', '钻石', '黄金', '铂金', '翡翠', '珍珠', '宝石', '钟表', '手表', '腕表'],
+                match: { '行业包装分类': { group: '服饰配件', item: '珠宝包装' }, '包装风格系统': { group: '轻奢', item: '高奢风' },
+                    '包装结构系统': { group: '盒型', item: '磁吸盒' }, '包装材质系统': { group: '布艺皮革', item: '绒布' }, '包装工艺系统': { group: '表面处理',
+                        item: '镜面处理工艺' }, '包装颜色系统': { group: '黑', item: '曜石黑' }, '包装字体系统': { group: '英文',
+                    item: '奢侈品字体' }, '心理感受系统': { group: '感受', item: '尊贵感' }, '消费定位系统': { group: '定位', item: '奢侈品型' } } },
+            { keywords: ['文创', '博物馆', '故宫', '非遗', '国潮', 'IP', '盲盒', '潮玩', '手办', '二次元', '动漫', '卡通', '纪念品', '景区', '文旅'],
+                match: { '行业包装分类': { group: '文创IP', item: '文创包装' }, '包装风格系统': { group: '东方', item: '国潮风' },
+                    '包装结构系统': { group: '盒型', item: '书型盒' }, '包装材质系统': { group: '纸类', item: '特种纸' }, '包装工艺系统': { group: '烫印',
+                        item: '烫金' }, '包装颜色系统': { group: '红', item: '中国红' }, '包装字体系统': { group: '中文', item: '书法体' },
+                    '心理感受系统': { group: '感受', item: '文化感' }, '消费定位系统': { group: '定位', item: '联名限定型' } } },
+            { keywords: ['电子', '手机', '耳机', '电脑', '数码', '智能', 'AI', '科技', '硬件', '电器', '笔记本', '平板', '手表', '手环', '音箱',
+                    '无人机'], match: { '行业包装分类': { group: '数码家电', item: '数码产品包装' }, '包装风格系统': { group: '科技', item: '科技未来风' },
+                    '包装结构系统': { group: '盒型', item: '抽屉盒' }, '包装材质系统': { group: '纸类', item: '白卡纸' }, '包装工艺系统': { group: 'UV',
+                        item: 'UV工艺' }, '包装颜色系统': { group: '灰', item: '深空灰' }, '包装字体系统': { group: '艺术', item: '科技字体' },
+                    '心理感受系统': { group: '感受', item: '科技感' }, '消费定位系统': { group: '定位', item: '中高端精品型' } } },
+            { keywords: ['月饼', '粽子', '年货', '节庆', '春节', '中秋', '端午', '元宵', '圣诞', '新年', '礼盒', '礼品', '伴手礼', '送礼'],
+                match: { '行业包装分类': { group: '电商定制', item: '节庆礼盒包装' }, '包装风格系统': { group: '特定', item: '节庆礼盒风' },
+                    '包装结构系统': { group: '盒型', item: '天地盖盒' }, '包装材质系统': { group: '纸类', item: '特种纸' }, '包装工艺系统': { group: '烫印',
+                        item: '烫金' }, '包装颜色系统': { group: '红', item: '中国红' }, '包装字体系统': { group: '中文', item: '书法体' },
+                    '心理感受系统': { group: '感受', item: '送礼感' }, '消费定位系统': { group: '定位', item: '节庆限定型' } } },
+            { keywords: ['服装', '鞋', '箱包', '皮具', '奢侈品', 'LV', 'Gucci', '爱马仕', 'Hermes', 'Chanel', 'Dior', 'Prada',
+                    'Burberry', '高档', '奢华', '精品'], match: { '行业包装分类': { group: '高端收藏', item: '奢侈品包装' }, '包装风格系统': { group: '轻奢',
+                        item: '奢侈品风' }, '包装结构系统': { group: '盒型', item: '磁吸盒' }, '包装材质系统': { group: '布艺皮革', item: 'PU皮革' },
+                    '包装工艺系统': { group: '表面处理', item: '电镀工艺' }, '包装颜色系统': { group: '黑', item: '钢琴黑' }, '包装字体系统': { group: '英文',
+                        item: '奢侈品字体' }, '心理感受系统': { group: '感受', item: '尊贵感' }, '消费定位系统': { group: '定位',
+                    item: '奢侈品型' } } }
+        ];
+        const fallbackMatch = { '行业包装分类': { group: '高端收藏', item: '高端消费品' }, '包装风格系统': { group: '极简', item: '现代极简风' },
+            '包装结构系统': { group: '盒型', item: '天地盖盒' }, '包装材质系统': { group: '纸类', item: '白卡纸' }, '包装工艺系统': { group: '烫印',
+                item: '烫金' }, '包装颜色系统': { group: '金', item: '香槟金' }, '包装字体系统': { group: '中文', item: '现代黑体' },
+            '心理感受系统': { group: '感受', item: '高级感' }, '消费定位系统': { group: '定位', item: '高端礼赠型' } };
+
+        function autoDetectAndApply(inputText) {
+            if (!inputText || inputText.trim().length < 2) return null;
+            const text = inputText.toLowerCase();
+            let bestMatch = null,
+                bestScore = 0;
+            for (const rule of autoMatchRules) { let score = 0; for (const kw of rule.keywords) { if (text.includes(kw
+                        .toLowerCase())) score += kw.length; } if (score > bestScore) { bestScore = score;
+                    bestMatch = rule.match; } }
+            if (bestMatch && bestScore > 0) { applyAutoMatch(bestMatch); return bestMatch; }
+            applyAutoMatch(fallbackMatch);
+            return fallbackMatch;
+        }
+
+        function applyAutoMatch(matchConfig) {
+            const brandKeys = Object.keys(selectedTags).filter(k => k.startsWith('品牌信息|||'));
+            const brandTags = {};
+            brandKeys.forEach(k => { brandTags[k] = selectedTags[k]; });
+            for (const [catName, { group, item }] of Object.entries(matchConfig)) {
+                if (categoryData[catName] && categoryData[catName].sub) {
+                    const subData = categoryData[catName].sub;
+                    if (subData[group] && subData[group].includes(item)) { selectedTags[`${catName}|||${group}|||${item}`] = {
+                            catName, groupName: group, item }; } else { for (const [gName, items] of Object.entries(
+                            subData)) { if (items.includes(item)) { selectedTags[`${catName}|||${gName}|||${item}`] = {
+                                catName, groupName: gName, item }; break; } } }
+                }
+            }
+            Object.keys(selectedTags).forEach(k => { if (k.startsWith('品牌信息|||') && !brandKeys.includes(k)) delete selectedTags[
+                    k]; });
+            Object.entries(brandTags).forEach(([k, v]) => { selectedTags[k] = v; });
+            refreshAllChips();
+            updateSelectedTagsDisplay();
+            generatedProposals = [];
+            updateOutputArea();
+        }
+
+        // 颜色映射
+        const colorMap = { '中国红': '#c41e3a', '故宫红': '#ab2524', '朱砂红': '#e34234', '正红色': '#ff0000', '酒红色': '#722f37',
+            '绛红色': '#8b0000', '枣红色': '#7b1818', '橙红色': '#ff4500', '爱马仕橙': '#f47321', '琥珀橙': '#ffbf00', '活力橙': '#ff6600',
+            '落日橙': '#ff8c00', '南瓜橙': '#ff7518', '香槟金': '#c9a96e', '玫瑰金': '#b76e79', '古铜金': '#b87333', '哑光金': '#b59a6b',
+            '鎏金色': '#d4af37', '钛金色': '#c4b59a', '珍珠白': '#f5f0e8', '象牙白': '#fffff0', '暖白色': '#fdf5e6', '奶油白': '#fdfbf7',
+            '米白色': '#f5f5dc', '香草白': '#f3e5ab', '高级灰': '#8c8c8c', '水泥灰': '#9b9b9b', '烟灰色': '#6e6e6e', '石墨灰': '#383838',
+            '深空灰': '#4a4a4a', '银灰色': '#c0c0c0', '曜石黑': '#0a0a0a', '钢琴黑': '#1a1a1a', '哑光黑': '#2b2b2b', '碳黑色': '#1c1c1c',
+            '午夜黑': '#191970', '科技蓝': '#1e5fbb', '深海蓝': '#003366', '宝石蓝': '#0f52ba', '皇家蓝': '#4169e1',
+        '蒂芙尼蓝': '#81d8d0', '湖蓝色': '#30d5c8', '冰川蓝': '#b3d9e8', '孔雀蓝': '#00677e', '天空蓝': '#87ceeb', '青绿色': '#00a86b',
+            '祖母绿': '#50c878', '森林绿': '#228b22', '橄榄绿': '#556b2f', '薄荷绿': '#98ff98', '抹茶绿': '#b7c9a8', '牛油果绿': '#86a76d',
+            '翡翠绿': '#00a36c', '荧光绿': '#39ff14', '香槟色': '#f7e7ce', '奶茶色': '#d4c4a8', '焦糖色': '#af6f3c', '驼色': '#c19a6b',
+            '卡其色': '#c3b091', '可可棕': '#5c3a21', '咖啡棕': '#6f4e37', '巧克力棕': '#7b3f00', '胡桃木色': '#6b4226',
+        '紫罗兰色': '#8b00ff', '深紫色': '#301934', '薰衣草紫': '#b57edc', '莫兰迪粉': '#d4a5a5', '樱花粉': '#ffb7c5', '裸粉色': '#f4c2c2',
+            '豆沙粉': '#c79191', '珊瑚粉': '#f88379', '玫红色': '#ff007f', '荧光粉': '#ff6ec7',
+            '彩虹渐变色': 'linear-gradient(90deg,red,orange,yellow,green,blue,indigo,violet)',
+            '镭射渐变色': 'linear-gradient(135deg,#ff00cc,#3333ff,#00ffcc)',
+            '极光渐变色': 'linear-gradient(135deg,#00ff88,#00aaff,#8800ff)',
+            '金属渐变色': 'linear-gradient(135deg,#c9a96e,#e8d5b7,#c9a96e)' };
+
         let selectedTags = {};
         let brandName = '';
         let generatedProposals = [];
 
-        function init() { renderLeftSidebar(); renderSubcategories(activeCategory); updateRightTags(); updatePromptsDisplay(); if(brandName) document.getElementById('brandNameInput').value = brandName; }
-        function addBrandTag() { const input=document.getElementById('brandNameInput'); const name=input.value.trim(); if(!name){showToast('请输入品牌名称');return;} brandName=name; Object.keys(selectedTags).forEach(k=>{if(k.startsWith('品牌信息|||')) delete selectedTags[k];}); selectedTags['品牌信息|||品牌名|||'+name]={catName:'品牌信息',groupName:'品牌名',item:name}; updateRightTags(); generatedProposals=[]; updatePromptsDisplay(); showToast('✅ 品牌名已添加：'+name); input.value=name; }
-        function removeBrandTag() { brandName=''; document.getElementById('brandNameInput').value=''; Object.keys(selectedTags).forEach(k=>{if(k.startsWith('品牌信息|||')) delete selectedTags[k];}); updateRightTags(); generatedProposals=[]; updatePromptsDisplay(); }
-        function getBrandName() { const keys=Object.keys(selectedTags).filter(k=>k.startsWith('品牌信息|||')); if(keys.length) return selectedTags[keys[0]].item; return brandName || document.getElementById('brandNameInput').value.trim() || ''; }
+        function init() { renderCategories();
+            updateSelectedTagsDisplay();
+            updateOutputArea(); if (brandName) document.getElementById('brandInput').value = brandName; }
 
-        function renderLeftSidebar() { const sidebar=document.getElementById('leftSidebarCats'); sidebar.innerHTML=''; Object.keys(categoryData).forEach(catName=>{ const btn=document.createElement('button'); btn.className='cat-btn'+(catName===activeCategory?' active':''); btn.innerHTML=`<span>${categoryData[catName].icon||'📌'}</span><span>${catName}</span>`; btn.onclick=()=>{activeCategory=catName;renderLeftSidebar();renderSubcategories(catName);}; sidebar.appendChild(btn);}); }
-        function renderSubcategories(catName) { const data=categoryData[catName]; const area=document.getElementById('leftSubcatArea'); area.innerHTML=''; if(!data.sub) return; if(data.isColor){ const colorMap={'中国红':'#c41e3a','故宫红':'#ab2524','朱砂红':'#e34234','正红色':'#ff0000','酒红色':'#722f37','绛红色':'#8b0000','枣红色':'#7b1818','橙红色':'#ff4500','爱马仕橙':'#f47321','琥珀橙':'#ffbf00','活力橙':'#ff6600','落日橙':'#ff8c00','南瓜橙':'#ff7518','香槟金':'#c9a96e','玫瑰金':'#b76e79','古铜金':'#b87333','哑光金':'#b59a6b','鎏金色':'#d4af37','钛金色':'#c4b59a','珍珠白':'#f5f0e8','象牙白':'#fffff0','暖白色':'#fdf5e6','奶油白':'#fdfbf7','米白色':'#f5f5dc','香草白':'#f3e5ab','高级灰':'#8c8c8c','水泥灰':'#9b9b9b','烟灰色':'#6e6e6e','石墨灰':'#383838','深空灰':'#4a4a4a','银灰色':'#c0c0c0','曜石黑':'#0a0a0a','钢琴黑':'#1a1a1a','哑光黑':'#2b2b2b','碳黑色':'#1c1c1c','午夜黑':'#191970','科技蓝':'#1e5fbb','深海蓝':'#003366','宝石蓝':'#0f52ba','皇家蓝':'#4169e1','蒂芙尼蓝':'#81d8d0','湖蓝色':'#30d5c8','冰川蓝':'#b3d9e8','孔雀蓝':'#00677e','天空蓝':'#87ceeb','青绿色':'#00a86b','祖母绿':'#50c878','森林绿':'#228b22','橄榄绿':'#556b2f','薄荷绿':'#98ff98','抹茶绿':'#b7c9a8','牛油果绿':'#86a76d','翡翠绿':'#00a36c','荧光绿':'#39ff14','香槟色':'#f7e7ce','奶茶色':'#d4c4a8','焦糖色':'#af6f3c','驼色':'#c19a6b','卡其色':'#c3b091','可可棕':'#5c3a21','咖啡棕':'#6f4e37','巧克力棕':'#7b3f00','胡桃木色':'#6b4226','紫罗兰色':'#8b00ff','深紫色':'#301934','薰衣草紫':'#b57edc','莫兰迪粉':'#d4a5a5','樱花粉':'#ffb7c5','裸粉色':'#f4c2c2','豆沙粉':'#c79191','珊瑚粉':'#f88379','玫红色':'#ff007f','荧光粉':'#ff6ec7','彩虹渐变色':'linear-gradient(90deg,red,orange,yellow,green,blue,indigo,violet)','镭射渐变色':'linear-gradient(135deg,#ff00cc,#3333ff,#00ffcc)','极光渐变色':'linear-gradient(135deg,#00ff88,#00aaff,#8800ff)','金属渐变色':'linear-gradient(135deg,#c9a96e,#e8d5b7,#c9a96e)'}; Object.entries(data.sub).forEach(([groupName,items])=>{ const gl=document.createElement('div');gl.className='group-label';gl.textContent=groupName;area.appendChild(gl); items.forEach(item=>{ const btn=document.createElement('button');btn.className='subcat-btn'; btn.innerHTML=`<span class="color-swatch" style="background:${colorMap[item]||'#888'};"></span>${item}`; btn.dataset.group=groupName;btn.dataset.value=item;btn.dataset.category=catName; updateBtnState(btn,catName,groupName,item); btn.onclick=()=>toggleTag(catName,groupName,item,btn); area.appendChild(btn); }); }); return; } if(data.hasInput){ const inputRow=document.createElement('div');inputRow.style.cssText='display:flex;gap:4px;align-items:center;flex-wrap:wrap;margin:4px 0;'; ['总长(cm)','总宽(cm)','总高(cm)'].forEach(f=>{ const sp=document.createElement('span');sp.style.cssText='font-size:9px;color:#a0988c;';sp.textContent=f;inputRow.appendChild(sp); const inp=document.createElement('input');inp.type='text';inp.placeholder='--';inp.style.cssText='width:48px;padding:4px;border:1px solid #e5e0d9;background:#fffefb;border-radius:4px;font-size:10px;text-align:center;'; inp.onchange=function(){if(this.value.trim()) addCustomTag(catName,'尺寸',f+':'+this.value.trim());}; inputRow.appendChild(inp); }); area.appendChild(inputRow); Object.entries(data.sub).forEach(([groupName,items])=>{ const gl=document.createElement('div');gl.className='group-label';gl.textContent=groupName;area.appendChild(gl); items.forEach(item=>{ const btn=document.createElement('button');btn.className='subcat-btn';btn.textContent=item; btn.dataset.group=groupName;btn.dataset.value=item;btn.dataset.category=catName; updateBtnState(btn,catName,groupName,item); btn.onclick=()=>toggleTag(catName,groupName,item,btn); area.appendChild(btn); }); }); return; } Object.entries(data.sub).forEach(([groupName,items])=>{ const gl=document.createElement('div');gl.className='group-label';gl.textContent=groupName;area.appendChild(gl); items.forEach(item=>{ const btn=document.createElement('button');btn.className='subcat-btn';btn.textContent=item; btn.dataset.group=groupName;btn.dataset.value=item;btn.dataset.category=catName; updateBtnState(btn,catName,groupName,item); btn.onclick=()=>toggleTag(catName,groupName,item,btn); area.appendChild(btn); }); }); }
-        function updateBtnState(btn,catName,groupName,item){ const key=`${catName}|||${groupName}|||${item}`; btn.classList.toggle('selected',!!selectedTags[key]); }
-        function toggleTag(catName,groupName,item,btn){ const key=`${catName}|||${groupName}|||${item}`; if(selectedTags[key]){delete selectedTags[key];}else{ Object.keys(selectedTags).forEach(k=>{if(k.startsWith(`${catName}|||${groupName}|||`)&&!k.startsWith('品牌信息|||')) delete selectedTags[k];}); selectedTags[key]={catName,groupName,item}; } renderSubcategories(activeCategory); updateRightTags(); generatedProposals=[]; updatePromptsDisplay(); }
-        function addCustomTag(catName,groupName,value){ selectedTags[`${catName}|||${groupName}|||${value}`]={catName,groupName,item:value}; updateRightTags(); generatedProposals=[]; updatePromptsDisplay(); }
-        function updateRightTags(){ const container=document.getElementById('rightTopTags'); const keys=Object.keys(selectedTags); document.getElementById('tagCountLabel').textContent=`已选 ${keys.length} 项`; if(keys.length===0){container.innerHTML='<span style="color:#c5bdb0;font-size:10px;">等待选择…</span>';}else{ container.innerHTML=keys.map(key=>{ const v=selectedTags[key]; const isBrand=v.catName==='品牌信息'; const short=isBrand?'🏷️ '+v.item:`${v.catName.slice(0,4)}:${v.item}`; return `<span class="selected-tag-pill${isBrand?' brand-tag-special':''}" onclick="removeTag('${key.replace(/'/g,"\\'")}')">${short}<span style="font-size:9px;opacity:0.5;margin-left:2px;">×</span></span>`; }).join(''); } }
-        function removeTag(key){ if(selectedTags[key]?.catName==='品牌信息'){removeBrandTag();return;} delete selectedTags[key]; renderSubcategories(activeCategory); updateRightTags(); generatedProposals=[]; updatePromptsDisplay(); }
-        function clearAllSelections(){ selectedTags={}; brandName=''; document.getElementById('brandNameInput').value=''; generatedProposals=[]; renderSubcategories(activeCategory); updateRightTags(); updatePromptsDisplay(); showToast('已清空全部选择'); }
-        function updatePromptsDisplay(){ const area=document.getElementById('promptsScrollArea'); if(!generatedProposals.length){ area.innerHTML='<div style="text-align:center;padding:30px;color:#c5bdb0;">📝<br>选择标签后生成八组完整方案</div>'; return; } area.innerHTML=generatedProposals.map((p,i)=>` <details class="prompt-card"> <summary><span class="p-num">${String(i+1).padStart(2,'0')}</span><span>${p.conceptName}</span></summary> <div class="prompt-content"> ${p.sections.map((sec,si)=>` <div class="prompt-section"> <div class="section-label">${sec.label}</div> ${sec.prompt} <br><button class="btn-copy-small" onclick="copyText(\`${sec.prompt.replace(/`/g,'\\`').replace(/'/g,"&#39;").replace(/"/g,"&quot;")}\`, this, 'section${si}')">📋 复制此组</button> </div>`).join('')} </div> </details>`).join(''); }
+        function addBrand() { const input = document.getElementById('brandInput'); const name = input.value.trim(); if (!name) {
+                showToast('请输入品牌或产品名称'); return; }
+            brandName = name;
+            Object.keys(selectedTags).forEach(k => { if (k.startsWith('品牌信息|||')) delete selectedTags[k]; });
+            selectedTags['品牌信息|||品牌名|||' + name] = { catName: '品牌信息', groupName: '品牌名', item: name };
+            updateSelectedTagsDisplay();
+            generatedProposals = [];
+            updateOutputArea();
+            showToast('✅ 品牌已添加：' + name);
+            input.value = name; const matchResult = autoDetectAndApply(name); if (matchResult) { showToast('🔍 已自动识别行业：' + (
+                    matchResult['行业包装分类']?.item || '通用') + '（可手动修改）'); } }
 
-        function getIndustryEnhancement(industry){
-            const industryStr = industry || '';
-            if(industryStr.includes('食品')||industryStr.includes('零食')||industryStr.includes('坚果')||industryStr.includes('糖果')||industryStr.includes('巧克力')||industryStr.includes('糕点')) return '强化食品行业包装特征：食欲感暖色调、防潮密封结构、食品级安全标识、营养成分表展示、透明可视窗设计';
-            if(industryStr.includes('茶叶')||industryStr.includes('茶礼盒')||industryStr.includes('咖啡')) return '强化国风文化属性：东方雅奢调性、文化叙事图形、手工匠人质感、天然材质纹理、仪式感开启体验';
-            if(industryStr.includes('化妆')||industryStr.includes('护肤')||industryStr.includes('美妆')||industryStr.includes('香水')||industryStr.includes('精华')||industryStr.includes('面膜')) return '强化高级轻奢感：镜面金属材质、电镀渐变工艺、极简无衬线字体、高透玻璃质感、磁吸开合仪式感';
-            if(industryStr.includes('礼盒')||industryStr.includes('礼品')||industryStr.includes('节庆')) return '强化开盒仪式感：多层展开结构、丝带磁吸设计、烫金压纹工艺、内托植绒材质、惊喜分层展示';
-            if(industryStr.includes('电子')||industryStr.includes('数码')||industryStr.includes('手机')||industryStr.includes('耳机')||industryStr.includes('智能')) return '强化科技感与结构逻辑：精密几何结构、镭射全息表面、深空灰科技蓝配色、模块化内托设计、NFC智能交互';
-            if(industryStr.includes('酒')||industryStr.includes('白酒')||industryStr.includes('红酒')||industryStr.includes('洋酒')) return '强化高端收藏价值：深色木纹质感、金属铭牌logo、皮质拎手设计、内衬丝绸材质、限量编号标识';
-            if(industryStr.includes('珠宝')||industryStr.includes('首饰')||industryStr.includes('钟表')) return '强化奢华展示感：超白玻璃展示窗、LED灯带内置、磁悬浮展示结构、天鹅绒内衬、镜面不锈钢材质';
-            return '强化通用高端包装特征：精致工艺细节、多层结构设计、优质材质表现、品牌视觉一致性';
-        }
+        function removeBrand() { brandName = '';
+            document.getElementById('brandInput').value = '';
+            Object.keys(selectedTags).forEach(k => { if (k.startsWith('品牌信息|||')) delete selectedTags[k]; });
+            updateSelectedTagsDisplay();
+            generatedProposals = [];
+            updateOutputArea();
+            showToast('品牌已移除'); }
 
-        function generateFullProposal(){
-            if(!Object.keys(selectedTags).length){ showToast('请先选择标签'); return; }
-            const grouped = {};
-            Object.keys(selectedTags).forEach(k=>{ const v=selectedTags[k]; if(v.catName==='品牌信息') return; if(!grouped[v.catName]) grouped[v.catName]=[]; grouped[v.catName].push(v.item); });
-            const currentBrand = getBrandName();
-            const get = (cats) => cats?.join('、') || '';
-            const industry = get(grouped['行业包装分类']) || '高端消费品';
-            const industryEnhance = getIndustryEnhancement(industry);
-            generatedProposals = designConcepts.map((c,i)=>{
-                const eco = ['碳足迹标签+盲文压印','全成分透明窗+数字水印','NFC触碰区+产品溯源二维码','大豆油墨+水性涂层'][i%4];
-                const brandPrefix = currentBrand ? `【品牌】${currentBrand}；` : '';
-                const structure = c.structure || get(grouped['包装结构系统']) || '天地盖盒';
-                const material = c.material || get(grouped['包装材质系统']) || 'FSC认证纸';
-                const craft = get(grouped['包装工艺系统']) || '烫金+压纹+UV';
-                const style = get(grouped['包装风格系统']) || '极简轻奢';
-                const color = get(grouped['包装颜色系统']) || '黑金';
-                const position = get(grouped['消费定位系统']) || '高端礼赠型';
-                const bleed = get(grouped['出血系统']) || '3mm出血';
-                const greyboard = get(grouped['灰板厚度数据库']) || '1200g灰板';
-                const aiElements = get(grouped['AI提示词要素']) || '多视图陈列+8K超高清+C4D渲染';
-                const unfoldType = c.unfold || get(grouped['包装展开图系统']) || '卡盒六面展开图';
-                const knifeType = c.knife || get(grouped['包装刀模图系统']) || '外轮廓刀线+折叠线+压痕线';
-                const imposition = get(grouped['包装拼版系统']) || '专版拼版';
-                const dimensions = get(grouped['包装尺寸标注系统']) || '总长、总宽、总高、展开尺寸';
-                const fonts = get(grouped['包装字体系统']) || '现代黑体';
-                const psychology = get(grouped['心理感受系统']) || '高级感+品质感';
+        function getBrand() { const keys = Object.keys(selectedTags).filter(k => k.startsWith('品牌信息|||')); if (keys.length) return selectedTags[
+                keys[0]].item; return brandName || document.getElementById('brandInput').value.trim() || ''; }
 
-                const section1 = `包装设计提案主视觉效果图，专业产品摄影级多视图陈列，构图包含正面主视图（居中C位占比45%）、45°俯视立体视角（右侧占比30%）、侧面结构展示（左侧占比25%），高档影棚纯色微水泥台面，三视图整齐排列，柔和投影与精准高光，${aiElements}——${brandPrefix}【概念】${c.name}：${c.feature}；【行业】${industry}；【结构】${structure}；【材质】${material}；【工艺】${craft}；【风格】${style}；【色彩】${color}；【字体】${fonts}；【心理感受】${psychology}；【定位】${position}；【环保】${eco}；【行业强化】${industryEnhance}——高品质产品摄影布光，柔光箱加侧逆光，空气感微尘，博物馆级展陈质感，极致细节，商业广告大片风格，包装设计获奖作品级画面。`;
-                const section2 = `包装六面展开图，${unfoldType}，包装刀版图完整结构，正面、背面、左侧面、右侧面、顶部、底部六面完整展示，印刷文件标准结构，高清矢量表现，白色背景，黑色刀线清晰锐利，包含${knifeType}，标注${dimensions}，${bleed}出血线、安全线，${greyboard}灰板厚度标识，${imposition}拼版方式示意图，可直接用于包装设计排版参考，工程图级别精度，8K超高清。`;
-                const section3 = `包装对称结构展示图，${structure}正反面对称展示，左右面对称展示，顶部与底部对应关系展示，结构分解图，包装比例分析图，包装空间关系图，包装结构说明图，轴测投影角度45°，${material}材质表现，半透明显示内部层次关系，${dimensions}尺寸标注清晰，C4D渲染，Octane渲染器，8K超高清，工程制图与产品摄影混合风格。`;
-                const section4 = `包装爆炸图，${structure}组件拆解图，外盒、内托、说明书、标签、产品主体、配件分层展示，爆炸结构图，工业设计表达方式，产品包装系统展示，各组件间距均匀排列，${material}材质真实表现，爆炸方向沿Z轴向上分层，轴测投影60°视角，C4D渲染，Octane渲染器，8K超高清，白色背景，适合产品包装结构说明。`;
-                const section5 = `包装刀版工程图，${structure}生产制造标准格式，包装尺寸标注完整，折线（绿色虚线）、裁切线（红色实线）、出血线（蓝色点划线）、压痕线（黄色虚线）、锁扣结构、粘贴区域（灰色填充）清晰区分，${bleed}出血区域明确标示，${greyboard}灰板截面可见，${imposition}拼版方式示意，工程制图规范，印刷厂生产标准格式，俯视正投影视图，矢量图风格，8K超高清。`;
-                const section6 = `包装组合展示图，${structure}单盒展示、多盒组合展示（3盒、6盒、12盒排列）、系列包装展示、货架陈列效果图、品牌矩阵展示图、终端销售场景展示图，${style}风格统一，${color}色彩系统贯穿，商业广告级渲染，真实光影，摄影棚布光，C4D渲染，Octane渲染器，8K超高清。`;
-                const section7 = `包装材质工艺展示图，${material}材质特写，${craft}工艺细节展示，烫金/烫银反光质感、UV/局部UV光泽对比、压纹/击凸/击凹立体细节、镭射全息效果、金属油墨光泽、磨砂膜哑光质感、亮膜高光反射、特种纸纹理特写，微距摄影级别，侧光强调表面起伏，8K超高清，产品级精修。`;
-                const section8 = `包装尺寸比例图，${structure}${dimensions}标注清晰，人手持包装比例参考（1:1真实比例），产品与包装比例关系图，运输包装尺寸关系图，货架陈列比例关系图，${greyboard}灰板厚度标注，内尺寸与外尺寸对比标注，工程制图风格，白色背景，尺寸线清晰，8K超高清，适合结构分析使用。`;
+        function renderCategories() { const container = document.getElementById('categoriesContainer');
+            container.innerHTML = '';
+            Object.entries(categoryData).forEach(([catName, data]) => { const card = document.createElement('details');
+                card.className = 'cat-card';
+                card.innerHTML =
+                    `<summary><span class="cat-icon">${data.icon}</span>${catName}<span class="cat-arrow">▼</span></summary><div class="cat-content" data-cat="${catName}"></div>`;
+                container.appendChild(card); const content = card.querySelector('.cat-content'); if (data.isColor) {
+                    Object.entries(data.sub).forEach(([groupName, items]) => { const gn = document.createElement('div');
+                        gn.className = 'group-name';
+                        gn.textContent = groupName;
+                        content.appendChild(gn);
+                        items.forEach(item => { const chip = document.createElement('span');
+                            chip.className = 'option-chip';
+                            chip.innerHTML =
+                                `<span class="color-dot" style="background:${colorMap[item]||'#888'};"></span>${item}`;
+                            chip.dataset.cat = catName;
+                            chip.dataset.group = groupName;
+                            chip.dataset.value = item;
+                            updateChipState(chip, catName, groupName, item);
+                            chip.onclick = () => selectOption(catName, groupName, item, chip);
+                            content.appendChild(chip); }); }); } else { Object.entries(data.sub).forEach(([
+                        groupName, items]) => { const gn = document.createElement('div');
+                        gn.className = 'group-name';
+                        gn.textContent = groupName;
+                        content.appendChild(gn);
+                        items.forEach(item => { const chip = document.createElement('span');
+                            chip.className = 'option-chip';
+                            chip.textContent = item;
+                            chip.dataset.cat = catName;
+                            chip.dataset.group = groupName;
+                            chip.dataset.value = item;
+                            updateChipState(chip, catName, groupName, item);
+                            chip.onclick = () => selectOption(catName, groupName, item, chip);
+                            content.appendChild(chip); }); }); } }); }
 
+        function updateChipState(chip, catName, groupName, item) { const key =
+        `${catName}|||${groupName}|||${item}`; if (selectedTags[key]) { chip.classList.add('selected'); } else { chip.classList
+                .remove('selected'); } }
+
+        function selectOption(catName, groupName, item, chip) { const key = `${catName}|||${groupName}|||${item}`; if (
+                selectedTags[key]) { delete selectedTags[key]; } else { Object.keys(selectedTags).forEach(k => { if (k
+                    .startsWith(`${catName}|||${groupName}|||`) && !k.startsWith('品牌信息|||')) { delete selectedTags[k]; } });
+            selectedTags[key] = { catName, groupName, item }; }
+            refreshAllChips();
+            updateSelectedTagsDisplay();
+            generatedProposals = [];
+            updateOutputArea(); }
+
+        function refreshAllChips() { document.querySelectorAll('.option-chip').forEach(chip => { const cat = chip.dataset.cat;
+                const group = chip.dataset.group; const val = chip.dataset.value;
+                updateChipState(chip, cat, group, val); }); }
+
+        function updateSelectedTagsDisplay() { const container = document.getElementById('selectedTagsBar'); const keys = Object
+                .keys(selectedTags);
+            document.getElementById('tagCountLabel').textContent = `已选 ${keys.length} 项`;
+            document.getElementById('tagCountText').textContent = `已选 ${keys.length} 项`; if (keys.length === 0) { container
+                    .innerHTML = '<span style="color:var(--text3);font-size:10px;">等待选择标签…</span>'; } else { container
+                    .innerHTML = keys.map(key => { const v = selectedTags[key]; const isBrand = v.catName === '品牌信息';
+                        const short = isBrand ? '🏷️ ' + v.item :
+                        `${v.catName.replace('包装','').replace('系统','').slice(0,6)}:${v.item}`; return `<span class="tag-pill${isBrand?' brand-tag':''}" onclick="removeTag('${key.replace(/'/g,"\\'")}')">${short}<span class="tag-remove">×</span></span>`; })
+                    .join(''); } }
+
+        function removeTag(key) { if (selectedTags[key]?.catName === '品牌信息') { removeBrand(); return; } delete selectedTags[key];
+            refreshAllChips();
+            updateSelectedTagsDisplay();
+            generatedProposals = [];
+            updateOutputArea(); }
+
+        function clearAll() { selectedTags = {};
+            brandName = '';
+            document.getElementById('brandInput').value = '';
+            generatedProposals = [];
+            refreshAllChips();
+            updateSelectedTagsDisplay();
+            updateOutputArea();
+            showToast('已清空全部选择'); }
+
+        function updateOutputArea() { const area = document.getElementById('outputArea'); if (!generatedProposals.length) { area
+                .innerHTML =
+                '<div class="empty-output"><span class="empty-icon">📝</span>请在左侧选择标签<br>每组仅可选一项，选择后点击生成九组同源扩展方案</div>'; return; }
+            area.innerHTML = generatedProposals.map((p, i) => `
+            <details class="proposal-card" ${i===0?'open':''}>
+              <summary><span class="prop-num">${String(i+1).padStart(2,'0')}</span>${p.conceptName}<span class="prop-arrow">▼</span></summary>
+              <div class="prop-content">
+                ${p.sections.map(sec => `
+                <div class="prop-section">
+                  <div class="sec-label">${sec.label}</div>
+                  ${sec.prompt}
+                  <br><button class="btn-copy-prop" onclick="copyProp(\`${sec.prompt.replace(/`/g,'\\`').replace(/'/g,"&#39;")}\`, this)">📋 复制此组</button>
+                </div>`).join('')}
+              </div>
+            </details>`).join(''); }
+
+        function getIndustryEnhancement(industry) { const s = industry || ''; if (s.includes('食品') || s.includes('零食') || s
+                .includes('坚果') || s.includes('糖果') || s.includes('巧克力') || s.includes('糕点'))
+                return '强化食品行业包装特征：食欲感暖色调、防潮密封结构、食品级安全标识、营养成分表展示、透明可视窗设计'; if (s.includes('茶叶') || s.includes('茶礼盒') || s
+                .includes('咖啡')) return '强化国风文化属性：东方雅奢调性、文化叙事图形、手工匠人质感、天然材质纹理、仪式感开启体验'; if (s.includes('化妆') || s.includes(
+                    '护肤') || s.includes('美妆') || s.includes('香水') || s.includes('精华') || s.includes('面膜'))
+                return '强化高级轻奢感：镜面金属材质、电镀渐变工艺、极简无衬线字体、高透玻璃质感、磁吸开合仪式感'; if (s.includes('礼盒') || s.includes('礼品') || s
+                .includes('节庆')) return '强化开盒仪式感：多层展开结构、丝带磁吸设计、烫金压纹工艺、内托植绒材质、惊喜分层展示'; if (s.includes('电子') || s.includes(
+                    '数码') || s.includes('手机') || s.includes('耳机') || s.includes('智能'))
+                return '强化科技感与结构逻辑：精密几何结构、镭射全息表面、深空灰科技蓝配色、模块化内托设计、NFC智能交互'; if (s.includes('酒') || s.includes('白酒') || s
+                .includes('红酒') || s.includes('洋酒')) return '强化高端收藏价值：深色木纹质感、金属铭牌logo、皮质拎手设计、内衬丝绸材质、限量编号标识'; if (s
+                .includes('珠宝') || s.includes('首饰') || s.includes('钟表'))
+                return '强化奢华展示感：超白玻璃展示窗、LED灯带内置、磁悬浮展示结构、天鹅绒内衬、镜面不锈钢材质'; return '强化通用高端包装特征：精致工艺细节、多层结构设计、优质材质表现、品牌视觉一致性'; }
+
+        function generateProposal() { if (!Object.keys(selectedTags).length) { showToast('请先选择至少一个标签'); return; } const grouped =
+                {};
+            Object.keys(selectedTags).forEach(k => { const v = selectedTags[k]; if (v.catName === '品牌信息') return; if (!grouped[
+                    v.catName]) grouped[v.catName] = [];
+                grouped[v.catName].push(v.item); }); const currentBrand = getBrand(); const get = (cats) => cats?.join('、') ||
+                ''; const industry = get(grouped['行业包装分类']) || '高端消费品'; const industryEnhancement =
+                getIndustryEnhancement(industry); const coreStructure = get(grouped['包装结构系统']) || '天地盖盒'; const coreMaterial =
+                get(grouped['包装材质系统']) || 'FSC认证纸'; const coreCraft = get(grouped['包装工艺系统']) || '烫金+压纹+UV'; const coreStyle =
+                get(grouped['包装风格系统']) || '极简轻奢'; const coreColor = get(grouped['包装颜色系统']) || '黑金'; const corePosition = get(
+                    grouped['消费定位系统']) || '高端礼赠型'; const coreBleed = get(grouped['出血系统']) || '3mm出血'; const coreGreyboard =
+                get(grouped['灰板厚度数据库']) || '1200g灰板'; const coreAI = get(grouped['AI提示词要素']) ||
+                '多视图陈列+8K超高清+C4D渲染'; const coreUnfold = get(grouped['包装展开图系统']) || '卡盒六面展开图'; const coreKnife = get(grouped[
+                    '包装刀模图系统']) || '外轮廓刀线+折叠线+压痕线'; const coreImposition = get(grouped['包装拼版系统']) || '专版拼版';
+            const coreDimensions = get(grouped['包装尺寸标注系统']) || '总长、总宽、总高、展开尺寸'; const coreFonts = get(grouped['包装字体系统']) ||
+                '现代黑体'; const corePsychology = get(grouped['心理感受系统']) || '高级感+品质感'; const coreEco =
+                '碳足迹标签+盲文压印+全成分透明窗+数字水印'; const brandPrefix = currentBrand ? `【品牌】${currentBrand}；` : '';
+            generatedProposals = expansionVariants.map((variant, idx) => {
+                const s1 =
+                    `包装设计提案主视觉效果图，专业产品摄影级多视图陈列，构图：${variant.angle}，高档影棚纯色微水泥台面，三视图整齐排列，${variant.lighting}，8K超高清，C4D渲染，Octane渲染器，产品级精修质感——${brandPrefix}【行业】${industry}；【结构】${coreStructure}；【材质】${coreMaterial}；【工艺】${coreCraft}；【风格】${coreStyle}；【色彩】${coreColor}；【字体】${coreFonts}；【心理感受】${corePsychology}；【定位】${corePosition}；【环保】${coreEco}；【行业强化】${industryEnhancement}；【本次变体】${variant.suffix}：${variant.mood}，${variant.detail}——高品质产品摄影布光，空气感微尘，博物馆级展陈质感，极致细节，商业广告大片风格，包装设计获奖作品级画面。`;
+                const s2 =
+                    `包装六面展开图，${coreUnfold}，包装刀版图完整结构，正面、背面、左侧面、右侧面、顶部、底部六面完整展示，印刷文件标准结构，高清矢量表现，白色背景，黑色刀线清晰锐利，包含${coreKnife}，标注${coreDimensions}，${coreBleed}出血线、安全线，${coreGreyboard}灰板厚度标识，${coreImposition}拼版方式示意图，可直接用于包装设计排版参考，工程图级别精度，8K超高清。`;
+                const s3 =
+                    `包装对称结构展示图，${coreStructure}正反面对称展示，左右面对称展示，顶部与底部对应关系展示，结构分解图，包装比例分析图，包装空间关系图，包装结构说明图，轴测投影角度45°，${coreMaterial}材质表现，半透明显示内部层次关系，${coreDimensions}尺寸标注清晰，C4D渲染，Octane渲染器，8K超高清，工程制图与产品摄影混合风格。`;
+                const s4 =
+                    `包装爆炸图，${coreStructure}组件拆解图，外盒、内托、说明书、标签、产品主体、配件分层展示，爆炸结构图，工业设计表达方式，产品包装系统展示，各组件间距均匀排列，${coreMaterial}材质真实表现，爆炸方向沿Z轴向上分层，轴测投影60°视角，C4D渲染，Octane渲染器，8K超高清，白色背景，适合产品包装结构说明。`;
+                const s5 =
+                    `包装刀版工程图，${coreStructure}生产制造标准格式，包装尺寸标注完整，折线（绿色虚线）、裁切线（红色实线）、出血线（蓝色点划线）、压痕线（黄色虚线）、锁扣结构、粘贴区域（灰色填充）清晰区分，${coreBleed}出血区域明确标示，${coreGreyboard}灰板截面可见，${coreImposition}拼版方式示意，工程制图规范，印刷厂生产标准格式，俯视正投影视图，矢量图风格，8K超高清。`;
+                const s6 =
+                    `包装组合展示图，${coreStructure}单盒展示、多盒组合展示（3盒、6盒、12盒排列）、系列包装展示、货架陈列效果图、品牌矩阵展示图、终端销售场景展示图，${coreStyle}风格统一，${coreColor}色彩系统贯穿，商业广告级渲染，真实光影，摄影棚布光，C4D渲染，Octane渲染器，8K超高清。`;
+                const s7 =
+                    `包装材质工艺展示图，${coreMaterial}材质特写，${coreCraft}工艺细节展示，烫金/烫银反光质感、UV/局部UV光泽对比、压纹/击凸/击凹立体细节、镭射全息效果、金属油墨光泽、磨砂膜哑光质感、亮膜高光反射、特种纸纹理特写，微距摄影级别，侧光强调表面起伏，8K超高清，产品级精修。`;
+                const s8 =
+                    `包装尺寸比例图，${coreStructure}${coreDimensions}标注清晰，人手持包装比例参考（1:1真实比例），产品与包装比例关系图，运输包装尺寸关系图，货架陈列比例关系图，${coreGreyboard}灰板厚度标注，内尺寸与外尺寸对比标注，工程制图风格，白色背景，尺寸线清晰，8K超高清，适合结构分析使用。`;
                 return {
-                    conceptName: (currentBrand ? currentBrand + ' · ' : '') + c.name,
+                    conceptName: (currentBrand ? currentBrand + ' · ' : '') + variant.suffix,
                     sections: [
-                        { label: '📸 第一组：包装主视觉效果图', prompt: section1 },
-                        { label: '📐 第二组：包装六面展开图', prompt: section2 },
-                        { label: '🔄 第三组：包装对称结构展示图', prompt: section3 },
-                        { label: '💥 第四组：包装爆炸图', prompt: section4 },
-                        { label: '🗡️ 第五组：包装刀版工程图', prompt: section5 },
-                        { label: '🧩 第六组：包装组合展示图', prompt: section6 },
-                        { label: '🔍 第七组：包装材质工艺展示图', prompt: section7 },
-                        { label: '📏 第八组：包装尺寸比例图', prompt: section8 }
+                        { label: '📸 主视觉效果图', prompt: s1 },
+                        { label: '📐 六面展开图', prompt: s2 },
+                        { label: '🔄 对称结构展示图', prompt: s3 },
+                        { label: '💥 爆炸图', prompt: s4 },
+                        { label: '🗡️ 刀版工程图', prompt: s5 },
+                        { label: '🧩 组合展示图', prompt: s6 },
+                        { label: '🔍 材质工艺展示图', prompt: s7 },
+                        { label: '📏 尺寸比例图', prompt: s8 }
                     ],
-                    index: i
+                    index: idx
                 };
             });
-            updatePromptsDisplay();
-            showToast('✅ 已生成20组完整展示方案（每组含八张图，全系统文字保留）！');
-            document.getElementById('promptsScrollArea').scrollTop = 0;
-        }
+            updateOutputArea();
+            showToast('✅ 已生成九组同源扩展方案（场景一致、主体一致、仅视角/光影/氛围变化）！');
+            document.getElementById('outputArea').scrollTop = 0; }
 
-        function copyText(text, btn, type){
-            const decoded = text.replace(/&#39;/g,"'").replace(/&quot;/g,'"').replace(/\\`/g,'`');
-            navigator.clipboard?.writeText(decoded).then(()=>{
-                btn.classList.add('copied'); btn.textContent = '✅ 已复制';
-                setTimeout(()=>{ btn.classList.remove('copied'); btn.textContent = '📋 复制此组'; },1800);
-                showToast('📋 已复制到剪贴板');
-            }).catch(()=>{
-                const ta = document.createElement('textarea'); ta.value = decoded; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta);
-                showToast('📋 已复制');
-            });
-        }
-        function showToast(msg){ const toast=document.getElementById('toast'); toast.textContent=msg; toast.classList.add('show'); clearTimeout(toast._timeout); toast._timeout=setTimeout(()=>toast.classList.remove('show'),2000); }
+        function copyProp(text, btn) { const decoded = text.replace(/&#39;/g, "'").replace(/\\`/g, '`');
+            navigator.clipboard?.writeText(decoded).then(() => { btn.classList.add('copied');
+                btn.textContent = '✅ 已复制';
+                setTimeout(() => { btn.classList.remove('copied');
+                    btn.textContent = '📋 复制此组'; }, 1800);
+                showToast('📋 已复制到剪贴板'); }).catch(() => { const ta = document.createElement('textarea');
+                ta.value = decoded;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                showToast('📋 已复制'); }); }
+
+        function showToast(msg) { const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.classList.add('show');
+            clearTimeout(t._t);
+            t._timeout = setTimeout(() => t.classList.remove('show'), 2000); }
         init();
-        renderSubcategories('行业包装分类');
     </script>
 </body>
 </html>
